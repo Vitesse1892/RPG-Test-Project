@@ -99,24 +99,26 @@ namespace RpgUiTests.StepDefinitions
         }
 
 
-        [When("de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd")]
-        public void WhenDeTyperBlokkadeWordtUitgeschakeldEnHetJuisteBerichtWordtGetypd()
+        [When("in totaal {int} keer de typer blokkade wordt uitgeschakeld en vervolgens het bericht {string} wordt getypt")]
+        public void WhenInTotaalKeerDeTyperBlokkadeWordtUitgeschakeldEnVervolgensHetBerichtWordtGetypt(int iterations, string message)
         {
-            _AdventurePlayPage.EnableTyperButtonAndTypeMessage();
+            _AdventurePlayPage.EnableTyperButtonAndTypeMessage(iterations, message);
         }
 
 
-
-
-
-
-
-
-        [When("een bestand wordt geüpload")]
-        public void WhenEenBestandWordtGeupload()
+        [Then("zijn de waarden voor alle stats gelijk aan level 10")]
+        public void ThenZijnDeWaardenVoorAlleStatsGelijkAanLevel()
         {
-            _AdventurePlayPage.UploadFile();
+            _AdventurePlayPage.AssertAllStatsHaveMaxLevel();
         }
+
+
+        [When("het {string} bestand wordt geüpload")]
+        public void WhenHetBestandWordtGeupload(string fileName)
+        {
+            _AdventurePlayPage.UploadFile(fileName);
+        }
+
 
         [When("het bericht {string} wordt getypt")]
         public void WhenHetBerichtWordtGetypt(string message)
@@ -147,6 +149,8 @@ namespace RpgUiTests.StepDefinitions
         {
             _AdventurePlayPage.AssertStatsAreIncreasedByCorrectAmount(totalAmountIncreasedFromStart);
         }
+
+
 
         [Then("verschijnt voor de task {string} geen bevestigingsbericht")]
         public void ThenVerschijntVoorDeTaskGeenBevestigingsbericht(string task)

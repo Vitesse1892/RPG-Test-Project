@@ -8,11 +8,15 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Files\cotton candy.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\cotton candy.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

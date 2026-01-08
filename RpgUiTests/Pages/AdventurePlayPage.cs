@@ -40,7 +40,11 @@ namespace RpgUiTests.Pages
         private IWebElement sliderTrack => _driver.FindElement(By.XPath("//span[@data-orientation='horizontal' and contains(@class,'w-full')]"));
         private IWebElement sliderContainer => _driver.FindElement(By.XPath("//span[@data-orientation='horizontal' and contains(@class,'touch-none')]"));
         private IWebElement txtMaxLvlConfMsg => _driver.FindElement(By.XPath("//span[contains(text(), \"You've reached the highest level!\")]"));
-        
+
+        private const string EnableElementScript = "arguments[0].disabled = false;";
+        private const string FilesFolder = "Files";
+        private const string CottonCandyFile = "cotton candy.jpg";
+        private const int MAX_STATS_WAARDE = 10;
 
 
         public void ClickTheClickItBtn(int amountOfClicks)
@@ -81,20 +85,47 @@ namespace RpgUiTests.Pages
             btnClickIt.Click();
         }
 
-        public void EnableTyperButtonAndTypeMessage()
+        public void EnableTyperButtonAndTypeMessage(int iterations, string message)
         {
-            ((IJavaScriptExecutor)_driverFixture.Driver).ExecuteScript("arguments[0].disabled=false", txtInpFieldToType);
-            TypeMessage("Lorem Ipsum");
+            for (int i = 0; i < iterations; i++)
+            {
+                EnableElement(txtInpFieldToType);
+                TypeMessage(message);
+            }
+
+            var currentStats = _commonPage.GetCharacterStats();
+            _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
         }
 
-        
-
-
-
-
-        public void UploadFile()
+        private void EnableElement(IWebElement element)
         {
-            fileInput.SendKeys(@"C:\Users\leroy\source\repos\RPG Test Project\RpgUiTests\Files\cotton candy.jpg");
+            ((IJavaScriptExecutor)_driverFixture.Driver).ExecuteScript(EnableElementScript, element);
+        }
+
+
+        public void AssertAllStatsHaveMaxLevel()
+        {
+            var statsCurrent = _scenarioContext.Get<CharacterOverviewDto>("AdventurePageStatsCurrent");
+            statsCurrent.Strength.Should().Be(MAX_STATS_WAARDE);
+            statsCurrent.Agility.Should().Be(MAX_STATS_WAARDE);
+            statsCurrent.Wisdom.Should().Be(MAX_STATS_WAARDE);
+            statsCurrent.Magic.Should().Be(MAX_STATS_WAARDE);
+        }
+
+
+        public void UploadFile(string fileName)
+        {
+            if (fileName.Equals("cotton candy", StringComparison.OrdinalIgnoreCase))
+            {
+                fileName = CottonCandyFile;
+            }
+
+            //Hier nog toevoegen tweede file ivm BONUS
+
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FilesFolder, fileName);
+            fileInput.SendKeys(filePath);
+            
+            //fileInput.SendKeys(@"C:\Users\leroy\source\repos\RPG Test Project\RpgUiTests\Files\cotton candy.jpg");
             //Set de current stats, zodat te verifiëren is of de actie gevolgen heeft gehad op de hoogte van de stats
             var currentStats = _commonPage.GetCharacterStats();
             _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");

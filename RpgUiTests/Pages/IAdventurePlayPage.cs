@@ -6,7 +6,7 @@ namespace RpgUiTests.Pages
     {
         void ClickTheClickItBtn(int amountOfCliks);
         void AssertConfirmationMessageForFinishedTask(string task, string confirmationMessage);
-        void UploadFile();
+        void UploadFile(string fileName);
         void TypeMessage(string message);
         void SlideToRight(int percentage);
         void AssertStatsWithPreparePlayPage();
@@ -16,6 +16,7 @@ namespace RpgUiTests.Pages
         void AssertDynamicTextTellerClickItBtn();
         void AssertConfirmationMessageForMaxLevel();
         void EnableClickerButton();
-        void EnableTyperButtonAndTypeMessage();
+        void EnableTyperButtonAndTypeMessage(int iterations, string message);
+        void AssertAllStatsHaveMaxLevel();
     }
 }

@@ -70,7 +70,7 @@ Scenario: H4 De Click it! button start met de tekst 'Click me 5 times' en loopt 
 Scenario: H5 Het afronden van de vier tasks resulteert in een max level bevestigingsbericht en een knop om opnieuw te spelen
 	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Brigadier"
 	When de Click it! button 5 keer wordt ingedrukt
-	And een bestand wordt geüpload
+	And het "cotton candy" bestand wordt geüpload
 	And het bericht "Lorem Ipsum" wordt getypt
 	And de slider voor 100 procent naar rechts wordt geschoven
 	Then verschijnt het max level bevestigingsbericht
@@ -78,23 +78,15 @@ Scenario: H5 Het afronden van de vier tasks resulteert in een max level bevestig
 	#Play again mogelijk pas nadat alle vier de taken zijn afgerond. 
 	#Element licht op en af
 
-Scenario: Bonus: Easter Egg achterhalen
-	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Knight"
-	When de Click it! button 5 keer wordt ingedrukt
-	And een bestand wordt geüpload
-	And het bericht "Lorem Ipsum" wordt getypt
-	And de slider voor 100 procent naar rechts wordt geschoven
-	And de clicker blokkade wordt uitgeschakeld
-	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
-	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
-	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
-	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
-	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
-	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
-	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
-	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
-	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
-	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
+Scenario: BONUS Easter Egg: Misbruik kwetsbaarheid typer task resulteert in level 10 stats
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Mage"
+	When het bericht "Lorem Ipsum" wordt getypt
+	And in totaal 9 keer de typer blokkade wordt uitgeschakeld en vervolgens het bericht "Lorem Ipsum" wordt getypt
+	Then zijn de waarden voor alle stats gelijk aan level 10
+
+Scenario: BONUS Easter Egg: Misbruik kwetsbaarheid uploader task resulteert in level 10 stats
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Mage"
+
 	
 
 
