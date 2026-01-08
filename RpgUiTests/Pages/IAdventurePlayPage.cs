@@ -12,5 +12,6 @@ namespace RpgUiTests.Pages
         void AssertStatsWithPreparePlayPage();
         void AssertStatsAreIncreasedByCorrectAmount(int totalAmountIncreasedFromStart);
         void AssertTaskConfirmationMessageForSpecificTaskIsNotVisible(string task);
+        void AssertTaskElementIsDisabled(string task);
     }
 }

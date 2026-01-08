@@ -124,8 +124,12 @@ namespace RpgUiTests.StepDefinitions
             _AdventurePlayPage.AssertTaskConfirmationMessageForSpecificTaskIsNotVisible(task);
         }
 
+        [Then("is het element van de task {string} disabled")]
+        public void ThenIsHetElementVanDeTaskDisabled(string task)
+        {
+            _AdventurePlayPage.AssertTaskElementIsDisabled(task);
+        }
 
-        
 
 
 

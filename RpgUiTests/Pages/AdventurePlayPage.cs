@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static TechTalk.SpecFlow.Configuration.AppConfig.GeneratorConfigElement;
 
 namespace RpgUiTests.Pages
 {
@@ -36,7 +37,8 @@ namespace RpgUiTests.Pages
         private IWebElement txtInpFieldToType => _driver.FindElement(By.XPath("//input[contains(@class,'rounded-md') and not(@type='file')]"));
         private IWebElement sliderThumb => _driver.FindElement(By.XPath("//span[@role='slider']"));
         private IWebElement sliderTrack => _driver.FindElement(By.XPath("//span[@data-orientation='horizontal' and contains(@class,'w-full')]"));
-        
+        private IWebElement sliderContainer => _driver.FindElement(By.XPath("//span[@data-orientation='horizontal' and contains(@class,'touch-none')]"));
+
 
         public void ClickTheClickItBtn(int amountOfClicks)
         {
@@ -65,7 +67,6 @@ namespace RpgUiTests.Pages
         public void UploadFile()
         {
             fileInput.SendKeys(@"C:\Users\leroy\source\repos\RPG Test Project\RpgUiTests\Files\cotton candy.jpg");
-
             //Set de current stats, zodat te verifiëren is of de actie gevolgen heeft gehad op de hoogte van de stats
             var currentStats = _commonPage.GetCharacterStats();
             _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
@@ -99,9 +100,7 @@ namespace RpgUiTests.Pages
 
         public void AssertStatsWithPreparePlayPage()
         {
-            var statsCharBuildPreparePage = _scenarioContext.Get<CharacterOverviewDto>("PreparePageStats");
-            var statsCharBuildAdventurePage = _scenarioContext.Get<CharacterOverviewDto>("AdventurePageStatsFromStart");
-            statsCharBuildPreparePage.Should().Be(statsCharBuildAdventurePage);
+            _scenarioContext.Get<CharacterOverviewDto>("PreparePageStats").Should().Be(_scenarioContext.Get<CharacterOverviewDto>("AdventurePageStatsFromStart"));
         }
 
         public void AssertStatsAreIncreasedByCorrectAmount(int totalAmountIncreasedFromStart)
@@ -117,7 +116,48 @@ namespace RpgUiTests.Pages
             statsCurrent.Level.Should().Be(statsFromStart.Level + totalAmountIncreasedFromStart);
         }
 
-   
+
+        public void AssertTaskElementIsDisabled(string task)
+        {
+            IWebElement taskElement;
+            bool isDisabled;
+
+            switch (task.ToLower())
+            {
+                case "clicker":
+                    taskElement = btnClickIt;
+                    isDisabled = !taskElement.Enabled;
+                    break;
+
+                case "uploader":
+                    taskElement = fileInput;
+                    isDisabled = !taskElement.Enabled;
+                    break;
+
+                case "typer":
+                    taskElement = txtInpFieldToType;
+                    isDisabled = !taskElement.Enabled;
+                    break;
+
+                case "slider":
+                    taskElement = sliderContainer;
+                    string dataDisabled = taskElement.GetAttribute("aria-disabled");
+                    //isDisabled = dataDisabled != null && dataDisabled.Equals("true", StringComparison.OrdinalIgnoreCase);
+                    isDisabled = !string.IsNullOrEmpty(dataDisabled);
+                    break;
+
+                default:
+                    throw new ArgumentException($"Invalide task opgegeven: {task}");
+            }
+
+            // Check of element disabled is
+            Assert.IsTrue(isDisabled, $"Task element '{task}' zou disabled moeten zijn, maar is dat niet.");
+        }
+
+        
+
+
+
 
     }
 }

@@ -15,10 +15,17 @@
 	4. slider		-->	Volledig naar rechts schuiven	-->	Slid to the next level!
 
 	Slider percentage uitsluitend tientallen procenten opgeven, dus {0%, 10%, 20%, ..., 100%)
+
+	Scenario U2 Uploader - Klikken op "bestand kiezen" en vervolgens klikken op "Annuleren" is niet te automatiseren. Daarom enkel checken of corfirmation message en level up bij aanvang niet aanwezig zijn.
+
+
 	#dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen voor specifieke build wellicht
+	#Mixen van alle scenario's E2E leidt tot extra confirmation message
+	#Task element disabled na level up en succes
+	#Click button telt af naar beneden
 
 #Happy flows
-Scenario: H1 De getoonde stats op de prepare play page komen overeen met de getoonde stats op de adventure play page voor elke build
+Scenario Outline: H1 De getoonde stats op de prepare play page komen overeen met de getoonde stats op de adventure play page voor elke build
 	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "<BuildType>"
 	Then komen de getoonde stats op de adventure page overeen met de getoonde stats van de prepare page
 
@@ -29,31 +36,8 @@ Examples:
 	| Mage      |
 	| Brigadier |
 
-Scenario: H2 Vijf keer klikken op de Click it! button resulteert in level up een bevestigingsbericht voor deze task
-	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Thief"
-	When de Click it! button 5 keer wordt ingedrukt
-	Then verschijnt voor de task "clicker" het bijbehorende bevestigingsbericht
-	And zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play page pagina
 
-Scenario: H3 Het uploaden van een bestand resulteert in level up een bevestigingsbericht voor deze task
-	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Knight"
-	When een bestand wordt geüpload
-	Then verschijnt voor de task "typer" het bijbehorende bevestigingsbericht
-	And zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play page pagina
-
-Scenario: H4 Het typen van een juist bericht resulteert in level up een bevestigingsbericht voor deze task
-	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Mage"
-	When het bericht "Lorem Ipsum" wordt getypt
-	Then verschijnt voor de task "mage" het bijbehorende bevestigingsbericht
-	And zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play page pagina
-
-Scenario: H5 Het volledig naar rechts schuiven van de slider resulteert in level up een bevestigingsbericht voor deze task
-	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Brigadier"
-	When de slider voor 100 procent naar rechts wordt geschoven
-	Then verschijnt voor de task "slider" het bijbehorende bevestigingsbericht
-	And zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play page pagina
-
-Scenario Outline: Voltooide acties per task leiden tot bijbehorende confirmation message en level up
+Scenario Outline: H2 Een voltooiing van de task leidt tot bijbehorende confirmation message en level up
 	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "<Character>"
 	When <Action>
 	Then verschijnt voor de task "<Task>" het bijbehorende bevestigingsbericht
@@ -66,9 +50,21 @@ Examples:
 	| typer    | het bericht "Lorem Ipsum" wordt getypt                 | Mage      |
 	| slider   | de slider voor 100 procent naar rechts wordt geschoven | Brigadier |
 
+Scenario Outline: H3 Een voltooiing van de task zorgt er voor dat het element van die task disabled raakt
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "<Character>"
+	When <Action>
+	Then is het element van de task "<Task>" disabled
+
+Examples:
+	| Task     | Action                                                 | Character |
+	| clicker  | de Click it! button 5 keer wordt ingedrukt             | Thief     |
+	| uploader | een bestand wordt geüpload                             | Knight    |
+	| typer    | het bericht "Lorem Ipsum" wordt getypt                 | Mage      |
+	| slider   | de slider voor 100 procent naar rechts wordt geschoven | Brigadier |
+
 #Unhappy
-Scenario: U1 Zo lang het totale aantal clicks op de Click it! button kleiner is dan 5, resulteert deze actie niet in level up een bevestigingsbericht voor deze task
-	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Thief"
+Scenario: U1 Clicker - Zo lang het totale aantal clicks op de Click it! button kleiner is dan 5, resulteert deze actie niet in level up een bevestigingsbericht voor deze task
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Brigadier"
 	When de Click it! button 1 keer wordt ingedrukt
 	Then verschijnt voor de task "clicker" geen bevestigingsbericht
 	And zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play page pagina
@@ -76,8 +72,43 @@ Scenario: U1 Zo lang het totale aantal clicks op de Click it! button kleiner is 
 	Then verschijnt voor de task "clicker" geen bevestigingsbericht
 	And zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play page pagina
 	When de Click it! button 1 keer wordt ingedrukt
-	Then verschijnt voor de task "clicker" het bevestigingsbericht "Great job! You levelled up"
+	Then verschijnt voor de task "clicker" het bijbehorende bevestigingsbericht
 	And zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play page pagina
 
+Scenario: U2 Uploader - Zo lang er geen bestand is geüpload, is er geen level up een bevestigingsbericht voor deze task
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Mage"
+	Then verschijnt voor de task "uploader" geen bevestigingsbericht
+	And zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play page pagina
+	When een bestand wordt geüpload
+	Then verschijnt voor de task "uploader" het bijbehorende bevestigingsbericht
+	And zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play page pagina
 
+Scenario: U3 Typer - Zo lang het woord "Lorem Ipsum" niet is getypt, resulteert deze actie niet in level up een bevestigingsbericht voor deze task
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Knight"
+	When het bericht "lorem Ipsum" wordt getypt
+	Then verschijnt voor de task "typer" geen bevestigingsbericht
+	And zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play page pagina
+	When het bericht "Lorem ipsum" wordt getypt
+	Then verschijnt voor de task "typer" geen bevestigingsbericht
+	And zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play page pagina
+	When het bericht "lorem ipsum" wordt getypt
+	Then verschijnt voor de task "typer" geen bevestigingsbericht
+	And zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play page pagina
+	When het bericht "Lorem Ipsum" wordt getypt
+	Then verschijnt voor de task "typer" het bijbehorende bevestigingsbericht
+	And zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play page pagina
 
+Scenario: U4 Slider - Zo lang de slider niet volledig naar rechts geschoven is, resulteert deze actie niet in level up een bevestigingsbericht voor deze task
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Thief"
+	When de slider voor 20 procent naar rechts wordt geschoven
+	Then verschijnt voor de task "slider" geen bevestigingsbericht
+	And zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play page pagina
+	When de slider voor 40 procent naar rechts wordt geschoven
+	Then verschijnt voor de task "slider" geen bevestigingsbericht
+	And zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play page pagina
+	When de slider voor 30 procent naar rechts wordt geschoven
+	Then verschijnt voor de task "slider" geen bevestigingsbericht
+	And zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play page pagina
+	When de slider voor 10 procent naar rechts wordt geschoven
+	Then verschijnt voor de task "slider" het bijbehorende bevestigingsbericht
+	And zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play page pagina
