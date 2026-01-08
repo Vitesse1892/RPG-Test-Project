@@ -5,5 +5,6 @@ namespace RpgUiTests.Pages
     public interface ICommonPage
     {
         bool IsOnPage(string cardName);
+        CharacterOverviewDto GetCharacterStats();
     }
 }

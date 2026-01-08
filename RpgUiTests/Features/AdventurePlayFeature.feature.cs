@@ -18,7 +18,7 @@ namespace RpgUiTests.Features
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "3.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class PreparePlayFeatureFeature
+    public partial class AdventurePlayFeatureFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
@@ -27,28 +27,23 @@ namespace RpgUiTests.Features
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "PreparePlayFeature", "\t- Na het klikken op de \"Click here to play\" button, kom je terecht op de play pa" +
-                "ge met de card \"Choose a name and build\"\r\n\t- Om het spel daadwerkelijk succesvol" +
-                " te kunnen starten (door op de \'Start!\' button te klikken), moet een \'Character " +
-                "name\' worden ingevuld. De build staat by default op \"Thief\", maar kan via de dro" +
-                "pdown worden gewijzigd.\r\n\t- Na het succesvol klikken op de \"Start!\" button, kom " +
-                "je terecht op de play page met de card \"Adventure time\".\r\n\t- Indien succesvol kl" +
-                "ikken op de \"Start!\" button niet lukt, blijf je op de play page met de card \"Cho" +
-                "ose a name and build\" en krijg je de validatie-errors te zien.\r\n\t- De character " +
-                "name moet tussen de drie en twintig katakters zijn. De mogelijke errors zijn:\r\n\t" +
-                "\t* Te kort: Name must be at least 3 characters\r\n\t\t* Te lang: Name cannot be long" +
-                "er than 20 characters\r\n\t- Validatie-errors worden nóóit getoond zo lang de \"Star" +
-                "t!\" button niet is ingedrukt. Ook niet als je een character name hebt ingevuld d" +
-                "ie niet aan de voorwaarden voldoet.\r\n\t- Indien je als gevolg van het klikken op " +
-                "de \"Start!\" button een validatie-error krijgt, deze waarde correct corrigeert en" +
-                " vervolgens voorziet van invalide waarde, krijg je ze validatie-error direct te " +
-                "zien zonder dat je hiervoor op de de \"Start!\" button moet klikken.\r\n\t- Via data " +
-                "binding is de ingevulde character name en geselecteerde build direct zichtbaar i" +
-                "n het overzicht. \r\n\t- Iedere build (Strength, Agility, Wisdom, Magic) heeft eige" +
-                "n stats waarden, zichtbaar wanneer build geselecteerd is. Level is altijd gelijk" +
-                " aan 1 bij aanvang.", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "AdventurePlayFeature", @"	- Clicking 5 times on the button should level up your character and show a confirmation message.
+	- Selecting a file for upload should level up your character and show a confirmation message.
+	- Typing 'Lorem Ipsum' into the input field should level up your character and show a confirmation message.
+	- Moving the slider all the way to the right should level up your character and show a confirmation message.
+	- After completing each task, the related input should be set to 'disabled'.
+
+	Denk ook aan disabled / niet meer klikbaar van button
+
+	Er zijn vier taken te vervullen welke bij succes resulteren in de volgende bevestigingsberichten:
+	1. clicker		-->	5 keer klikken					-->	Great job! You levelled up
+	2. uploader		-->	1 keer bestand oploaden			--> File selected, level up!
+	3. typer		-->	""Lorem Ipsum"" typen				-->	Dolar sit amet!
+	4. slider		-->	Volledig naar rechts schuiven	-->	Slid to the next level!
+
+	Slider percentage uitsluitend tientallen procenten opgeven, dus {0%, 10%, 20%, ..., 100%)", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
-#line 1 "PreparePlayFeature.feature"
+#line 1 "AdventurePlayFeature.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
@@ -136,165 +131,33 @@ namespace RpgUiTests.Features
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/PreparePlayFeature.feature.ndjson", 10);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/AdventurePlayFeature.feature.ndjson", 15);
         }
         
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("H1. Kies een geldige character name, selecteer een build en start het spel")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("H1. Kies een geldige character name, selecteer een build en start het spel")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "PreparePlayFeature")]
-        public async global::System.Threading.Tasks.Task H1_KiesEenGeldigeCharacterNameSelecteerEenBuildEnStartHetSpel()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            string pickleIndex = "0";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("H1. Kies een geldige character name, selecteer een build en start het spel", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
-            string[] tagsOfRule = ((string[])(null));
-            global::Reqnroll.RuleInfo ruleInfo = null;
-#line 16
-this.ScenarioInitialize(scenarioInfo, ruleInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                await testRunner.SkipScenarioAsync();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 17
- await testRunner.GivenAsync("dat ik op de Click here to play button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
-#line 18
- await testRunner.ThenAsync("wordt de juiste pagina getoond met de card \"Choose a name and build\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
-                            "CharacterName",
-                            "BuildType"});
-                table1.AddRow(new string[] {
-                            "Spelersnaam",
-                            "Brigadier"});
-#line 19
- await testRunner.WhenAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table1, "When ");
-#line hidden
-#line 22
- await testRunner.WhenAsync("ik op de Start! button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 23
- await testRunner.ThenAsync("wordt de juiste pagina getoond met de card \"Adventure time\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("H2. De juiste error messages verschijnen en verdwijnen in de juiste situaties")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("H2. De juiste error messages verschijnen en verdwijnen in de juiste situaties")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "PreparePlayFeature")]
-        public async global::System.Threading.Tasks.Task H2_DeJuisteErrorMessagesVerschijnenEnVerdwijnenInDeJuisteSituaties()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            string pickleIndex = "1";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("H2. De juiste error messages verschijnen en verdwijnen in de juiste situaties", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
-            string[] tagsOfRule = ((string[])(null));
-            global::Reqnroll.RuleInfo ruleInfo = null;
-#line 25
-this.ScenarioInitialize(scenarioInfo, ruleInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                await testRunner.SkipScenarioAsync();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 26
- await testRunner.GivenAsync("dat ik op de Click here to play button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
-                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
-                            "CharacterName",
-                            "BuildType"});
-                table2.AddRow(new string[] {
-                            "Hi",
-                            "Mage"});
-#line 27
- await testRunner.AndAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table2, "And ");
-#line hidden
-#line 30
- await testRunner.ThenAsync("zie ik geen character name error message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-#line 31
- await testRunner.WhenAsync("ik op de Start! button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 32
- await testRunner.ThenAsync("zie ik de character name error message: \"Name must be at least 3 characters\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
-                            "CharacterName",
-                            "BuildType"});
-                table3.AddRow(new string[] {
-                            "HiHiHi",
-                            "Mage"});
-#line 33
- await testRunner.WhenAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table3, "When ");
-#line hidden
-#line 36
- await testRunner.ThenAsync("zie ik geen character name error message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
-                            "CharacterName",
-                            "BuildType"});
-                table4.AddRow(new string[] {
-                            "HiHiHiHiHiHiHiHiHiHiH",
-                            "Mage"});
-#line 37
- await testRunner.WhenAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table4, "When ");
-#line hidden
-#line 40
- await testRunner.ThenAsync("zie ik de character name error message: \"Name cannot be longer than 20 characters" +
-                        "\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-                global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
-                            "CharacterName",
-                            "BuildType"});
-                table5.AddRow(new string[] {
-                            "HiHiHiHi",
-                            "Mage"});
-#line 41
- await testRunner.WhenAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table5, "When ");
-#line hidden
-#line 44
- await testRunner.ThenAsync("zie ik geen character name error message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("H3. Selecteer iedere build en controleer de juiste stats waarden")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("H3. Selecteer iedere build en controleer de juiste stats waarden")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "PreparePlayFeature")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam123", "Thief", "1", "6", "2", "1", "1", "2", null, DisplayName="H3. Selecteer iedere build en controleer de juiste stats waarden(Spelersnaam123,T" +
-            "hief,1,6,2,1,1,2)")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam234", "Knight", "6", "2", "1", "1", "1", "3", null, DisplayName="H3. Selecteer iedere build en controleer de juiste stats waarden(Spelersnaam234,K" +
-            "night,6,2,1,1,1,3)")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam345", "Mage", "0", "1", "3", "6", "1", "4", null, DisplayName="H3. Selecteer iedere build en controleer de juiste stats waarden(Spelersnaam345,M" +
-            "age,0,1,3,6,1,4)")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam456", "Brigadier", "3", "1", "6", "1", "1", "5", null, DisplayName="H3. Selecteer iedere build en controleer de juiste stats waarden(Spelersnaam456,B" +
-            "rigadier,3,1,6,1,1,5)")]
-        public async global::System.Threading.Tasks.Task H3_SelecteerIedereBuildEnControleerDeJuisteStatsWaarden(string characterName, string buildType, string strength, string agility, string wisdom, string magic, string level, string @__pickleIndex, string[] exampleTags)
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("H1 De getoonde stats op de prepare play page komen overeen met de getoonde stats " +
+            "op de adventure play page voor elke build")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("H1 De getoonde stats op de prepare play page komen overeen met de getoonde stats " +
+            "op de adventure play page voor elke build")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AdventurePlayFeature")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Thief", "0", null, DisplayName="H1 De getoonde stats op de prepare play page komen overeen met de getoonde stats " +
+            "op de adventure play page voor elke build(Thief,0)")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Knight", "1", null, DisplayName="H1 De getoonde stats op de prepare play page komen overeen met de getoonde stats " +
+            "op de adventure play page voor elke build(Knight,1)")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Mage", "2", null, DisplayName="H1 De getoonde stats op de prepare play page komen overeen met de getoonde stats " +
+            "op de adventure play page voor elke build(Mage,2)")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Brigadier", "3", null, DisplayName="H1 De getoonde stats op de prepare play page komen overeen met de getoonde stats " +
+            "op de adventure play page voor elke build(Brigadier,3)")]
+        public async global::System.Threading.Tasks.Task H1DeGetoondeStatsOpDePreparePlayPageKomenOvereenMetDeGetoondeStatsOpDeAdventurePlayPageVoorElkeBuild(string buildType, string @__pickleIndex, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("CharacterName", characterName);
             argumentsOfScenario.Add("BuildType", buildType);
-            argumentsOfScenario.Add("Strength", strength);
-            argumentsOfScenario.Add("Agility", agility);
-            argumentsOfScenario.Add("Wisdom", wisdom);
-            argumentsOfScenario.Add("Magic", magic);
-            argumentsOfScenario.Add("Level", level);
             string pickleIndex = @__pickleIndex;
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("H3. Selecteer iedere build en controleer de juiste stats waarden", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("H1 De getoonde stats op de prepare play page komen overeen met de getoonde stats " +
+                    "op de adventure play page voor elke build", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 46
+#line 21
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -304,56 +167,117 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 47
- await testRunner.GivenAsync("dat ik op de Click here to play button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 22
+ await testRunner.GivenAsync(string.Format("dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht " +
+                            "te komen met character build type \"{0}\"", buildType), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
-                            "CharacterName",
-                            "BuildType"});
-                table6.AddRow(new string[] {
-                            string.Format("{0}", characterName),
-                            string.Format("{0}", buildType)});
-#line 48
- await testRunner.WhenAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table6, "When ");
-#line hidden
-                global::Reqnroll.Table table7 = new global::Reqnroll.Table(new string[] {
-                            "CharacterName",
-                            "BuildType",
-                            "Strength",
-                            "Agility",
-                            "Wisdom",
-                            "Magic",
-                            "Level"});
-                table7.AddRow(new string[] {
-                            string.Format("{0}", characterName),
-                            string.Format("{0}", buildType),
-                            string.Format("{0}", strength),
-                            string.Format("{0}", agility),
-                            string.Format("{0}", wisdom),
-                            string.Format("{0}", magic),
-                            string.Format("{0}", level)});
-#line 51
- await testRunner.ThenAsync("zie ik de juiste character name, build type en stats waarden in het overzicht", ((string)(null)), table7, "Then ");
+#line 23
+ await testRunner.ThenAsync("komen de getoonde stats op de adventure page overeen met de getoonde stats van de" +
+                        " prepare page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("u1. Spel proberen te starten met character name die te kort is resulteert in erro" +
-            "r message")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("u1. Spel proberen te starten met character name die te kort is resulteert in erro" +
-            "r message")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "PreparePlayFeature")]
-        public async global::System.Threading.Tasks.Task U1_SpelProberenTeStartenMetCharacterNameDieTeKortIsResulteertInErrorMessage()
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("H2 Vijf keer klikken op de Click it! button resulteert in level up een bevestigin" +
+            "gsbericht voor deze task")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("H2 Vijf keer klikken op de Click it! button resulteert in level up een bevestigin" +
+            "gsbericht voor deze task")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AdventurePlayFeature")]
+        public async global::System.Threading.Tasks.Task H2VijfKeerKlikkenOpDeClickItButtonResulteertInLevelUpEenBevestigingsberichtVoorDezeTask()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "4";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("H2 Vijf keer klikken op de Click it! button resulteert in level up een bevestigin" +
+                    "gsbericht voor deze task", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 32
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 33
+ await testRunner.GivenAsync("dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht " +
+                        "te komen met character build type \"Thief\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 34
+ await testRunner.WhenAsync("de Click it! button 5 keer wordt ingedrukt", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 35
+ await testRunner.ThenAsync("verschijnt voor de task \"clicker\" het bijbehorende bevestigingsbericht", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 36
+ await testRunner.AndAsync("zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play " +
+                        "page pagina", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("H3 Het uploaden van een bestand resulteert in level up een bevestigingsbericht vo" +
+            "or deze task")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("H3 Het uploaden van een bestand resulteert in level up een bevestigingsbericht vo" +
+            "or deze task")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AdventurePlayFeature")]
+        public async global::System.Threading.Tasks.Task H3HetUploadenVanEenBestandResulteertInLevelUpEenBevestigingsberichtVoorDezeTask()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "5";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("H3 Het uploaden van een bestand resulteert in level up een bevestigingsbericht vo" +
+                    "or deze task", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 38
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 39
+ await testRunner.GivenAsync("dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht " +
+                        "te komen met character build type \"Knight\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 40
+ await testRunner.WhenAsync("een bestand wordt geüpload", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 41
+ await testRunner.ThenAsync("verschijnt voor de task \"typer\" het bijbehorende bevestigingsbericht", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 42
+ await testRunner.AndAsync("zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play " +
+                        "page pagina", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("H4 Het typen van een juist bericht resulteert in level up een bevestigingsbericht" +
+            " voor deze task")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("H4 Het typen van een juist bericht resulteert in level up een bevestigingsbericht" +
+            " voor deze task")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AdventurePlayFeature")]
+        public async global::System.Threading.Tasks.Task H4HetTypenVanEenJuistBerichtResulteertInLevelUpEenBevestigingsberichtVoorDezeTask()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "6";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("u1. Spel proberen te starten met character name die te kort is resulteert in erro" +
-                    "r message", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("H4 Het typen van een juist bericht resulteert in level up een bevestigingsbericht" +
+                    " voor deze task", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 64
+#line 44
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -363,43 +287,39 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 65
- await testRunner.GivenAsync("dat ik op de Click here to play button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 45
+ await testRunner.GivenAsync("dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht " +
+                        "te komen met character build type \"Mage\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
-                            "CharacterName",
-                            "BuildType"});
-                table8.AddRow(new string[] {
-                            "Hi",
-                            "Mage"});
-#line 66
- await testRunner.AndAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table8, "And ");
+#line 46
+ await testRunner.WhenAsync("het bericht \"Lorem Ipsum\" wordt getypt", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 69
- await testRunner.WhenAsync("ik op de Start! button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 47
+ await testRunner.ThenAsync("verschijnt voor de task \"mage\" het bijbehorende bevestigingsbericht", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 70
- await testRunner.ThenAsync("zie ik de character name error message: \"Name must be at least 3 characters\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 48
+ await testRunner.AndAsync("zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play " +
+                        "page pagina", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("u2. Spel proberen te starten met character name die te lang is resulteert in erro" +
-            "r message")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("u2. Spel proberen te starten met character name die te lang is resulteert in erro" +
-            "r message")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "PreparePlayFeature")]
-        public async global::System.Threading.Tasks.Task U2_SpelProberenTeStartenMetCharacterNameDieTeLangIsResulteertInErrorMessage()
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("H5 Het volledig naar rechts schuiven van de slider resulteert in level up een bev" +
+            "estigingsbericht voor deze task")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("H5 Het volledig naar rechts schuiven van de slider resulteert in level up een bev" +
+            "estigingsbericht voor deze task")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AdventurePlayFeature")]
+        public async global::System.Threading.Tasks.Task H5HetVolledigNaarRechtsSchuivenVanDeSliderResulteertInLevelUpEenBevestigingsberichtVoorDezeTask()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "7";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("u2. Spel proberen te starten met character name die te lang is resulteert in erro" +
-                    "r message", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("H5 Het volledig naar rechts schuiven van de slider resulteert in level up een bev" +
+                    "estigingsbericht voor deze task", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 72
+#line 50
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -409,24 +329,135 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 73
- await testRunner.GivenAsync("dat ik op de Click here to play button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 51
+ await testRunner.GivenAsync("dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht " +
+                        "te komen met character build type \"Brigadier\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
-                            "CharacterName",
-                            "BuildType"});
-                table9.AddRow(new string[] {
-                            "HiHiHiHiHiHiHiHiHiHiH",
-                            "Mage"});
+#line 52
+ await testRunner.WhenAsync("de slider voor 100 procent naar rechts wordt geschoven", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 53
+ await testRunner.ThenAsync("verschijnt voor de task \"slider\" het bijbehorende bevestigingsbericht", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 54
+ await testRunner.AndAsync("zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play " +
+                        "page pagina", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("Voltooide acties per task leiden tot bijbehorende confirmation message en level u" +
+            "p")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Voltooide acties per task leiden tot bijbehorende confirmation message en level u" +
+            "p")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AdventurePlayFeature")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("clicker", "de Click it! button 5 keer wordt ingedrukt", "Thief", "8", null, DisplayName="Voltooide acties per task leiden tot bijbehorende confirmation message en level u" +
+            "p(clicker,de Click it! button 5 keer wordt ingedrukt,Thief,8)")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("uploader", "een bestand wordt geüpload", "Knight", "9", null, DisplayName="Voltooide acties per task leiden tot bijbehorende confirmation message en level u" +
+            "p(uploader,een bestand wordt geüpload,Knight,9)")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("typer", "het bericht \"Lorem Ipsum\" wordt getypt", "Mage", "10", null, DisplayName="Voltooide acties per task leiden tot bijbehorende confirmation message en level u" +
+            "p(typer,het bericht \"Lorem Ipsum\" wordt getypt,Mage,10)")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("slider", "de slider voor 100 procent naar rechts wordt geschoven", "Brigadier", "11", null, DisplayName="Voltooide acties per task leiden tot bijbehorende confirmation message en level u" +
+            "p(slider,de slider voor 100 procent naar rechts wordt geschoven,Brigadier,11)")]
+        public async global::System.Threading.Tasks.Task VoltooideActiesPerTaskLeidenTotBijbehorendeConfirmationMessageEnLevelUp(string task, string action, string character, string @__pickleIndex, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Task", task);
+            argumentsOfScenario.Add("Action", action);
+            argumentsOfScenario.Add("Character", character);
+            string pickleIndex = @__pickleIndex;
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Voltooide acties per task leiden tot bijbehorende confirmation message en level u" +
+                    "p", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 56
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 57
+ await testRunner.GivenAsync(string.Format("dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht " +
+                            "te komen met character build type \"{0}\"", character), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 58
+ await testRunner.WhenAsync(string.Format("{0}", action), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 59
+ await testRunner.ThenAsync(string.Format("verschijnt voor de task \"{0}\" het bijbehorende bevestigingsbericht", task), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 60
+ await testRunner.AndAsync("zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play " +
+                        "page pagina", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("U1 Zo lang het totale aantal clicks op de Click it! button kleiner is dan 5, resu" +
+            "lteert deze actie niet in level up een bevestigingsbericht voor deze task")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("U1 Zo lang het totale aantal clicks op de Click it! button kleiner is dan 5, resu" +
+            "lteert deze actie niet in level up een bevestigingsbericht voor deze task")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AdventurePlayFeature")]
+        public async global::System.Threading.Tasks.Task U1ZoLangHetTotaleAantalClicksOpDeClickItButtonKleinerIsDan5ResulteertDezeActieNietInLevelUpEenBevestigingsberichtVoorDezeTask()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "12";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("U1 Zo lang het totale aantal clicks op de Click it! button kleiner is dan 5, resu" +
+                    "lteert deze actie niet in level up een bevestigingsbericht voor deze task", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 70
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 71
+ await testRunner.GivenAsync("dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht " +
+                        "te komen met character build type \"Thief\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 72
+ await testRunner.WhenAsync("de Click it! button 1 keer wordt ingedrukt", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 73
+ await testRunner.ThenAsync("verschijnt voor de task \"clicker\" geen bevestigingsbericht", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
 #line 74
- await testRunner.AndAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table9, "And ");
+ await testRunner.AndAsync("zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play " +
+                        "page pagina", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 75
+ await testRunner.WhenAsync("de Click it! button 3 keer wordt ingedrukt", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 76
+ await testRunner.ThenAsync("verschijnt voor de task \"clicker\" geen bevestigingsbericht", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 77
- await testRunner.WhenAsync("ik op de Start! button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.AndAsync("zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play " +
+                        "page pagina", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 78
- await testRunner.ThenAsync("zie ik de character name error message: \"Name cannot be longer than 20 characters" +
-                        "\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.WhenAsync("de Click it! button 1 keer wordt ingedrukt", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 79
+ await testRunner.ThenAsync("verschijnt voor de task \"clicker\" het bevestigingsbericht \"Great job! You levelle" +
+                        "d up\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 80
+ await testRunner.AndAsync("zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play " +
+                        "page pagina", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

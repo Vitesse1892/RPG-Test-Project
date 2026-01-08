@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RpgUiTests.Models
 {
-    public class CharacterOverviewDto
+    public record CharacterOverviewDto
     {
         public string CharacterName { get; set; }
         public BuildType BuildType { get; set; }

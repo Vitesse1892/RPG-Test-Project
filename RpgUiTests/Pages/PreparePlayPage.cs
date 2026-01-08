@@ -37,7 +37,6 @@ namespace RpgUiTests.Pages
         private IWebElement valueWisdom => _driver.FindElement(By.XPath("//div[@data-character-stats='Wisdom']//span"));
         private IWebElement valueMagic => _driver.FindElement(By.XPath("//div[@data-character-stats='Magic']//span"));
         private IWebElement valueLevel => _driver.FindElement(By.XPath("//div[@data-character-stats='Level']//span"));
-        private IWebElement GetPageHeader(string headerText) => _driver.FindElement(By.XPath($"//h3[normalize-space(text())='{headerText}']"));
 
 
         public void ClickClickHereToPlaybtn() => btnClickHereToPlay.Click();
@@ -58,6 +57,7 @@ namespace RpgUiTests.Pages
             txtInpFieldCharacterName.ClearAndEnterText(character.CharacterName);
             ddlBuildType.SelectDropdownByText(character.BuildType.ToString()); 
         }
+
 
         public void AssertErrMsgCharacterName(string expErrMsg)
         {
@@ -88,7 +88,7 @@ namespace RpgUiTests.Pages
         {
             var buildTypeSelected = txtSelFieldBuildType.Text.Trim();
             
-            var buildTypeHeaderFullText = txtSelFieldBuildType.Text.Trim();
+            var buildTypeHeaderFullText = txtHeaderBuildType.Text.Trim();
             var buildTypeHeaderSplit = buildTypeHeaderFullText.Split(' ').Last();
 
             buildTypeSelected.Should().Be(expData.BuildType.ToString(), $"Selection field issue: Expected Build type to be \"{expData.BuildType.ToString()}\", but found \"{buildTypeSelected}\"");

@@ -23,7 +23,9 @@ public class Startup
                 .AddScoped<IDriverFixture, DriverFixture>()
                 .AddScoped<IDriverWait, DriverWait>()
                 .AddScoped<IPreparePlayPage, PreparePlayPage>()
-                .AddScoped<ICommonPage, CommonPage>();
+                .AddScoped<IAdventurePlayPage, AdventurePlayPage>()
+                .AddScoped<ICommonPage, CommonPage>()
+                .AddScoped<ScenarioContext>();
 
         return services;
     }

@@ -176,7 +176,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
  await testRunner.WhenAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table1, "When ");
 #line hidden
 #line 22
- await testRunner.WhenAsync("ik op de Start! button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.AndAsync("ik op de Start! button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 23
  await testRunner.ThenAsync("wordt de juiste pagina getoond met de card \"Adventure time\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

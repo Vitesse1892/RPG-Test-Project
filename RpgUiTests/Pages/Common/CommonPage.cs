@@ -23,15 +23,38 @@ namespace RpgUiTests.Pages
             _driverFixture = driverFixture;
         }
 
-        private IWebElement GetPageHeader(string headerText) => _driver.FindElement(By.XPath($"//h3[normalize-space(text())='{headerText}']"));
+        private IWebElement GetPageHeaderElm(string headerText) => _driver.FindElement(By.XPath($"//h3[normalize-space(text())='{headerText}']"));
+        private IWebElement txtHeaderCharacterName => _driver.FindElement(By.XPath("//h3[@data-testid='character-name']"));
+        private IWebElement txtHeaderBuildType => _driver.FindElement(By.XPath("//p[@data-testid='character-stats']"));
+        private IWebElement valueStrength => _driver.FindElement(By.XPath("//div[@data-character-stats='Strength']//span"));
+        private IWebElement valueAgility => _driver.FindElement(By.XPath("//div[@data-character-stats='Agility']//span"));
+        private IWebElement valueWisdom => _driver.FindElement(By.XPath("//div[@data-character-stats='Wisdom']//span"));
+        private IWebElement valueMagic => _driver.FindElement(By.XPath("//div[@data-character-stats='Magic']//span"));
+        private IWebElement valueLevel => _driver.FindElement(By.XPath("//div[@data-character-stats='Level']//span"));
 
 
         public bool IsOnPage(string cardName)
         {
-            try { return GetPageHeader(cardName).Displayed; }
+            try { return GetPageHeaderElm(cardName).Displayed; }
             catch { return false; }
         }
 
+        public CharacterOverviewDto GetCharacterStats()
+        {
+            var buildTypeText = txtHeaderBuildType.Text.Trim().Split(' ').Last();
+            var buildType = Enum.TryParse<BuildType>(buildTypeText, true, out var bt) ? bt : throw new ArgumentException($"Build type '{buildTypeText}' is ongeldig.", nameof(buildTypeText));
+
+            return new CharacterOverviewDto
+            {
+                CharacterName = txtHeaderCharacterName.Text.Trim(),
+                BuildType = buildType,
+                Strength = int.Parse(valueStrength.Text.Trim()),
+                Agility = int.Parse(valueAgility.Text.Trim()),
+                Wisdom = int.Parse(valueWisdom.Text.Trim()),
+                Magic = int.Parse(valueMagic.Text.Trim()),
+                Level = int.Parse(valueLevel.Text.Trim()),
+            };
+        }
 
     }
 }

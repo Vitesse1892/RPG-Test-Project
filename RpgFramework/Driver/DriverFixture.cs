@@ -26,15 +26,37 @@ namespace RpgFramework.Driver
 
         private IWebDriver GetDriverType(BrowserType browserType)
         {
-            return browserType switch
+            IWebDriver driver = browserType switch
             {
-                BrowserType.Chrome => new ChromeDriver(),
+                BrowserType.Chrome => CreateChromeDriver(),
                 BrowserType.Firefox => new FirefoxDriver(),
-                BrowserType.Edge => new EdgeDriver(),
+                BrowserType.Edge => CreateEdgeDriver(),
                 BrowserType.Safari => new SafariDriver(),
-                _ => new ChromeDriver(),
+                _ => CreateChromeDriver(),
             };
+
+            driver.Manage().Window.Maximize(); // groot venster
+            return driver;
         }
+
+        private IWebDriver CreateChromeDriver()
+        {
+            var options = new ChromeOptions();
+            float scale = _testSettings.ScaleFactor ?? 1.0f;
+            options.AddArgument($"--force-device-scale-factor={scale}"); //Zoom in or out
+
+            return new ChromeDriver(options);
+        }
+
+        private IWebDriver CreateEdgeDriver()
+        {
+            var options = new EdgeOptions();
+            float scale = _testSettings.ScaleFactor ?? 1.0f;
+            options.AddArgument($"--force-device-scale-factor={scale}"); //Zoom in or out
+
+            return new EdgeDriver(options);
+        }
+
 
         public void Dispose()
         {

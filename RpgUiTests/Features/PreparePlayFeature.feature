@@ -19,7 +19,7 @@ Scenario: H1. Kies een geldige character name, selecteer een build en start het 
 	When dat ik de character name invul en een build selecteer met onderstaande details
 		| CharacterName | BuildType |
 		| Spelersnaam   | Brigadier |
-	When ik op de Start! button klik
+	And ik op de Start! button klik
 	Then wordt de juiste pagina getoond met de card "Adventure time"
 
 Scenario: H2. De juiste error messages verschijnen en verdwijnen in de juiste situaties

@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ReqnrollFeatureFile Remove="Features\AdventurePlayFeature.feature" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
