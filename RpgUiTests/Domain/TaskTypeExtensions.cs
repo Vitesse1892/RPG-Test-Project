@@ -19,5 +19,12 @@ namespace RpgUiTests.Domain
                 _ => throw new ArgumentOutOfRangeException(nameof(taskType))
             };
         }
+
+
+        public static string GetMaxLevelMessage()
+        {
+            return "You've reached the highest level!";
+        }
+
     }
 }

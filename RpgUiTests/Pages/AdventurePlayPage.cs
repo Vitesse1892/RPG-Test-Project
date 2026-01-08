@@ -4,6 +4,7 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using RpgFramework.Driver;
 using RpgFramework.Extensions;
+using RpgUiTests.Domain;
 using RpgUiTests.Models;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,8 @@ namespace RpgUiTests.Pages
         private IWebElement sliderThumb => _driver.FindElement(By.XPath("//span[@role='slider']"));
         private IWebElement sliderTrack => _driver.FindElement(By.XPath("//span[@data-orientation='horizontal' and contains(@class,'w-full')]"));
         private IWebElement sliderContainer => _driver.FindElement(By.XPath("//span[@data-orientation='horizontal' and contains(@class,'touch-none')]"));
+        private IWebElement txtMaxLvlConfMsg => _driver.FindElement(By.XPath("//span[contains(text(), \"You've reached the highest level!\")]"));
+        
 
 
         public void ClickTheClickItBtn(int amountOfClicks)
@@ -64,6 +67,31 @@ namespace RpgUiTests.Pages
             taskMsgElementsCount.Should().Be(0, $"Expected no confirmation messages to be shown for the specified task, but found \"{taskMsgElementsCount}\" error element(s).");
         }
 
+        public void AssertConfirmationMessageForMaxLevel()
+        {
+            var expMaxLvlConfMsg = TaskTypeExtensions.GetMaxLevelMessage();
+            string actMaxLvlConfMsg = txtMaxLvlConfMsg.Text.Trim();
+            actMaxLvlConfMsg.Should().Be(expMaxLvlConfMsg, $"Confirmation message issue: Expected message to be \"{expMaxLvlConfMsg}\", but found \"{actMaxLvlConfMsg}\"");
+
+        }
+
+        public void EnableClickerButton()
+        {
+            ((IJavaScriptExecutor)_driverFixture.Driver).ExecuteScript("arguments[0].disabled=false", btnClickIt);
+            btnClickIt.Click();
+        }
+
+        public void EnableTyperButtonAndTypeMessage()
+        {
+            ((IJavaScriptExecutor)_driverFixture.Driver).ExecuteScript("arguments[0].disabled=false", txtInpFieldToType);
+            TypeMessage("Lorem Ipsum");
+        }
+
+        
+
+
+
+
         public void UploadFile()
         {
             fileInput.SendKeys(@"C:\Users\leroy\source\repos\RPG Test Project\RpgUiTests\Files\cotton candy.jpg");
@@ -80,6 +108,26 @@ namespace RpgUiTests.Pages
             var currentStats = _commonPage.GetCharacterStats();
             _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
         }
+
+        public void AssertDynamicTextTellerClickItBtn()
+        {
+            int totalClicks = 5;
+
+            string initialExpectedText = $"Click me {totalClicks} times";
+            string initialActualText = btnClickIt.Text;
+            if (initialActualText != initialExpectedText) throw new Exception($"Initiële tekst klopt niet. Verwacht: '{initialExpectedText}', maar kreeg: '{initialActualText}'");
+           
+            for (int i = 0; i < totalClicks; i++)
+            {
+                btnClickIt.Click();
+                System.Threading.Thread.Sleep(100);
+
+                string expectedText = $"Click me {totalClicks - i - 1} times";
+                string actualText = btnClickIt.Text;
+                if (actualText != expectedText) throw new Exception($"Tekst klopt niet. Verwacht: '{expectedText}', maar kreeg: '{actualText}'");
+            }
+        }
+
 
         public void SlideToRight(int percentage)
         {
@@ -117,33 +165,32 @@ namespace RpgUiTests.Pages
         }
 
 
-        public void AssertTaskElementIsDisabled(string task)
+        public void AssertTaskElementState(string task, bool shouldBeEnabled)
         {
             IWebElement taskElement;
-            bool isDisabled;
+            bool isEnabled;
 
             switch (task.ToLower())
             {
                 case "clicker":
                     taskElement = btnClickIt;
-                    isDisabled = !taskElement.Enabled;
+                    isEnabled = taskElement.Enabled;
                     break;
 
                 case "uploader":
                     taskElement = fileInput;
-                    isDisabled = !taskElement.Enabled;
+                    isEnabled = taskElement.Enabled;
                     break;
 
                 case "typer":
                     taskElement = txtInpFieldToType;
-                    isDisabled = !taskElement.Enabled;
+                    isEnabled = taskElement.Enabled;
                     break;
 
                 case "slider":
                     taskElement = sliderContainer;
-                    string dataDisabled = taskElement.GetAttribute("aria-disabled");
-                    //isDisabled = dataDisabled != null && dataDisabled.Equals("true", StringComparison.OrdinalIgnoreCase);
-                    isDisabled = !string.IsNullOrEmpty(dataDisabled);
+                    string ariaDisabled = taskElement.GetAttribute("aria-disabled");
+                    isEnabled = !(ariaDisabled?.Equals("true", StringComparison.OrdinalIgnoreCase) == true);
                     break;
 
                 default:
@@ -151,7 +198,8 @@ namespace RpgUiTests.Pages
             }
 
             // Check of element disabled is
-            Assert.IsTrue(isDisabled, $"Task element '{task}' zou disabled moeten zijn, maar is dat niet.");
+            Assert.AreEqual(shouldBeEnabled, isEnabled, $"Task element '{task}' zou {(shouldBeEnabled ? "enabled" : "disabled")} moeten zijn, maar is dat niet.");
+            //(isDisabled, $"Task element '{task}' zou disabled moeten zijn, maar is dat niet.");
         }
 
         

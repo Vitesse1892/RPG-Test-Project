@@ -63,6 +63,13 @@ namespace RpgUiTests.StepDefinitions
             _AdventurePlayPage.ClickTheClickItBtn(amountOfClicks);
         }
 
+        [Then("loopt de dynamische teller in de click it button terug van 5 naar 0 bij elke klik")]
+        public void ThenLooptDeDynamischeTellerInDeClickItButtonTerugVanNaarBijElkeKlik()
+        {
+            _AdventurePlayPage.AssertDynamicTextTellerClickItBtn();
+        }
+
+
 
         [Then("verschijnt voor de task {string} het bijbehorende bevestigingsbericht")]
         public void ThenVerschijntVoorDeTaskHetBijbehorendeBevestigingsbericht(string task)
@@ -78,6 +85,30 @@ namespace RpgUiTests.StepDefinitions
             var statsCharBuildPreparePage = _CommonPage.GetCharacterStats();
             _scenarioContext.Set(statsCharBuildPreparePage, "AdventurePageStatsCurrent");
         }
+
+        [Then("verschijnt het max level bevestigingsbericht")]
+        public void ThenVerschijntHetMaxLevelBevestigingsbericht()
+        {
+            _AdventurePlayPage.AssertConfirmationMessageForMaxLevel();
+        }
+
+        [When("de clicker blokkade wordt uitgeschakeld")]
+        public void WhenDeClickerBlokkadeWordtUitgeschakeld()
+        {
+            _AdventurePlayPage.EnableClickerButton();
+        }
+
+
+        [When("de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd")]
+        public void WhenDeTyperBlokkadeWordtUitgeschakeldEnHetJuisteBerichtWordtGetypd()
+        {
+            _AdventurePlayPage.EnableTyperButtonAndTypeMessage();
+        }
+
+
+
+
+
 
 
 
@@ -124,11 +155,19 @@ namespace RpgUiTests.StepDefinitions
             _AdventurePlayPage.AssertTaskConfirmationMessageForSpecificTaskIsNotVisible(task);
         }
 
+        [Then("is het element van de task {string} enabled")]
+        public void ThenIsHetElementVanDeTaskEnabled(string task)
+        {
+            _AdventurePlayPage.AssertTaskElementState(task, shouldBeEnabled: true);
+        }
+
         [Then("is het element van de task {string} disabled")]
         public void ThenIsHetElementVanDeTaskDisabled(string task)
         {
-            _AdventurePlayPage.AssertTaskElementIsDisabled(task);
+            _AdventurePlayPage.AssertTaskElementState(task, shouldBeEnabled: false);
         }
+
+        
 
 
 

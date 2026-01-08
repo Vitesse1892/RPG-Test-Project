@@ -12,6 +12,10 @@ namespace RpgUiTests.Pages
         void AssertStatsWithPreparePlayPage();
         void AssertStatsAreIncreasedByCorrectAmount(int totalAmountIncreasedFromStart);
         void AssertTaskConfirmationMessageForSpecificTaskIsNotVisible(string task);
-        void AssertTaskElementIsDisabled(string task);
+        void AssertTaskElementState(string task, bool shouldBeEnabled);
+        void AssertDynamicTextTellerClickItBtn();
+        void AssertConfirmationMessageForMaxLevel();
+        void EnableClickerButton();
+        void EnableTyperButtonAndTypeMessage();
     }
 }

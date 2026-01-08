@@ -18,11 +18,11 @@
 
 	Scenario U2 Uploader - Klikken op "bestand kiezen" en vervolgens klikken op "Annuleren" is niet te automatiseren. Daarom enkel checken of corfirmation message en level up bij aanvang niet aanwezig zijn.
 
+	#level dynamisch
 
 	#dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen voor specifieke build wellicht
 	#Mixen van alle scenario's E2E leidt tot extra confirmation message
-	#Task element disabled na level up en succes
-	#Click button telt af naar beneden
+
 
 #Happy flows
 Scenario Outline: H1 De getoonde stats op de prepare play page komen overeen met de getoonde stats op de adventure play page voor elke build
@@ -52,6 +52,7 @@ Examples:
 
 Scenario Outline: H3 Een voltooiing van de task zorgt er voor dat het element van die task disabled raakt
 	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "<Character>"
+	Then is het element van de task "<Task>" enabled
 	When <Action>
 	Then is het element van de task "<Task>" disabled
 
@@ -61,6 +62,41 @@ Examples:
 	| uploader | een bestand wordt geüpload                             | Knight    |
 	| typer    | het bericht "Lorem Ipsum" wordt getypt                 | Mage      |
 	| slider   | de slider voor 100 procent naar rechts wordt geschoven | Brigadier |
+
+Scenario: H4 De Click it! button start met de tekst 'Click me 5 times' en loopt per klik dynamisch terug van 5 naar 0
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Knight"
+	Then loopt de dynamische teller in de click it button terug van 5 naar 0 bij elke klik
+
+Scenario: H5 Het afronden van de vier tasks resulteert in een max level bevestigingsbericht en een knop om opnieuw te spelen
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Brigadier"
+	When de Click it! button 5 keer wordt ingedrukt
+	And een bestand wordt geüpload
+	And het bericht "Lorem Ipsum" wordt getypt
+	And de slider voor 100 procent naar rechts wordt geschoven
+	Then verschijnt het max level bevestigingsbericht
+
+	#Play again mogelijk pas nadat alle vier de taken zijn afgerond. 
+	#Element licht op en af
+
+Scenario: Bonus: Easter Egg achterhalen
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Knight"
+	When de Click it! button 5 keer wordt ingedrukt
+	And een bestand wordt geüpload
+	And het bericht "Lorem Ipsum" wordt getypt
+	And de slider voor 100 procent naar rechts wordt geschoven
+	And de clicker blokkade wordt uitgeschakeld
+	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
+	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
+	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
+	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
+	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
+	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
+	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
+	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
+	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
+	And de typer blokkade wordt uitgeschakeld en het juiste bericht wordt getypd
+	
+
 
 #Unhappy
 Scenario: U1 Clicker - Zo lang het totale aantal clicks op de Click it! button kleiner is dan 5, resulteert deze actie niet in level up een bevestigingsbericht voor deze task
