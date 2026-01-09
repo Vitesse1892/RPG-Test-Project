@@ -18,7 +18,7 @@
 Via onderstaande tasks is het onbedoeld mogelijk misbruik te maken van een kwetsbaarheid in de code, waardoor je build maximale stats-waarden van 10 kunnen bereiken
 1. Typer		-->	De uitschakeling van het element na het typen van "Lorem Ipsum" kan worden teruggedraaid. Door opnieuw "Lorem Ipsum" typen en dit proces te herhalen, kun je max stats bereiken.
 2. Uploader		--> De uitschakeling van het element na het uploaden van de "cotton candy" file kan worden teruggedraaid. Door vervolgens de "rock in the ocean" te uploaden, 
-					opnieuw de uitschakeling van het element na het uploaden terug te draaien en dit proces te herhalen, kun je max stats bereiken
+					opnieuw de uitschakeling van het element na het uploaden terug te draaien en dit proces te herhalen, kun je max stats bereiken.
 
 
 #Happy flows
