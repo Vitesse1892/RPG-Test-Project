@@ -37,9 +37,6 @@ namespace RpgUiTests.Pages.PreparePage
         private IWebElement valueMagic => _driver.FindElement(By.XPath("//div[@data-character-stats='Magic']//span"));
         private IWebElement valueLevel => _driver.FindElement(By.XPath("//div[@data-character-stats='Level']//span"));
 
-
-
-
         public void ChooseName(CharacterOverviewDto character)
         {
             txtInpFieldCharacterName.ClearAndEnterText(character.CharacterName);

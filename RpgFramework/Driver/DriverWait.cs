@@ -26,7 +26,6 @@ public class DriverWait: IDriverWait
     public IWebElement FindElement(By elementLocator)
     {
         return _webDriverWait.Value.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(elementLocator));
-        //return _webDriverWait.Value.Until(_ => _driverFixture.Driver.FindElement(elementLocator));
     }  
 
 
@@ -37,7 +36,6 @@ public class DriverWait: IDriverWait
             var elements = driver.FindElements(elementLocator);
             return elements.Any() ? elements : null;
         });
-        //return _webDriverWait.Value.Until(_ => _driverFixture.Driver.FindElements(elementLocator));
     }
 
     private WebDriverWait GetWaitDriver()

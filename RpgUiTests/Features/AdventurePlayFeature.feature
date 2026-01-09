@@ -21,16 +21,6 @@ Via onderstaande tasks is het onbedoeld mogelijk misbruik te maken van een kwets
 					opnieuw de uitschakeling van het element na het uploaden terug te draaien en dit proces te herhalen, kun je max stats bereiken
 
 
-				
-	#Play again button
-
-	#How to run plaatsen
-	#Test zowel lokaal als tegen productie-URL kunnen runnen
-	#level dynamisch
-
-	#dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen voor specifieke build wellicht
-
-
 #Happy flows
 Scenario Outline: H1 De getoonde stats op de prepare play page komen overeen met de getoonde stats op de adventure play page voor elke build
 	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "<BuildType>"
