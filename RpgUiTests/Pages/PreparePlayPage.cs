@@ -86,13 +86,13 @@ namespace RpgUiTests.Pages
 
         public void AssertDataBindingBuildType(CharacterOverviewDto expData)
         {
-            var buildTypeSelected = txtSelFieldBuildType.Text.Trim();
+            var buildTypeSelected = txtSelFieldBuildType.Text.Trim().ToLowerInvariant();
             
             var buildTypeHeaderFullText = txtHeaderBuildType.Text.Trim();
             var buildTypeHeaderSplit = buildTypeHeaderFullText.Split(' ').Last();
 
-            buildTypeSelected.Should().Be(expData.BuildType.ToString(), $"Selection field issue: Expected Build type to be \"{expData.BuildType.ToString()}\", but found \"{buildTypeSelected}\"");
-            buildTypeHeaderSplit.Should().Be(expData.BuildType.ToString(), $"Header issue: Expected build type to be \"{expData.BuildType.ToString()}\", but found \"{buildTypeHeaderSplit}\"");
+            buildTypeSelected.Should().Be(expData.BuildType.ToString().ToLowerInvariant(), $"Selection field issue: Expected Build type to be \"{expData.BuildType.ToString().ToLowerInvariant()}\", but found \"{buildTypeSelected}\"");
+            buildTypeHeaderSplit.Should().Be(expData.BuildType.ToString().ToLowerInvariant(), $"Header issue: Expected build type to be \"{expData.BuildType.ToString().ToLowerInvariant()}\", but found \"{buildTypeHeaderSplit}\"");
             //Data binding check
             buildTypeSelected.Should().Be(buildTypeHeaderSplit, $"Expected build type selection field \"{buildTypeSelected}\", to be equal to build type in header \"{buildTypeHeaderSplit}\"");
         }

@@ -18,6 +18,18 @@
 
 	Scenario U2 Uploader - Klikken op "bestand kiezen" en vervolgens klikken op "Annuleren" is niet te automatiseren. Daarom enkel checken of corfirmation message en level up bij aanvang niet aanwezig zijn.
 
+	*****BONUS Easter Egg*****
+	Via onderstaande tasks is het onbedoeld mogelijk misbruik te maken van een kwetsbaarheid in de code, waardoor je build maximale stats-waarden van 10 kunnen bereiken
+		1. Typer		-->	De uitschakeling van het element na het typen van "Lorem Ipsum" kan worden teruggedraaid. Door opnieuw "Lorem Ipsum" typen, 
+							en dit proces te herhalen, kun je max stats bereiken.
+		2. Uploader		--> De uitschakeling van het element na het uploaden van de "cotton candy" file kan worden teruggedraaid. Door vervolgens de "rock in the ocean" te uploaden, 
+							opnieuw de uitschakeling van het element na het uploaden terug te draaien en dit proces te herhalen, kun je max stats bereiken
+							
+						
+
+
+	#How to run plaatsen
+	#Test zowel lokaal als tegen productie-URL kunnen runnen
 	#level dynamisch
 
 	#dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen voor specifieke build wellicht
@@ -46,7 +58,7 @@ Scenario Outline: H2 Een voltooiing van de task leidt tot bijbehorende confirmat
 Examples:
 	| Task     | Action                                                 | Character |
 	| clicker  | de Click it! button 5 keer wordt ingedrukt             | Thief     |
-	| uploader | een bestand wordt geüpload                             | Knight    |
+	| uploader | het "cotton candy" bestand wordt geüpload              | Knight    |
 	| typer    | het bericht "Lorem Ipsum" wordt getypt                 | Mage      |
 	| slider   | de slider voor 100 procent naar rechts wordt geschoven | Brigadier |
 
@@ -59,7 +71,7 @@ Scenario Outline: H3 Een voltooiing van de task zorgt er voor dat het element va
 Examples:
 	| Task     | Action                                                 | Character |
 	| clicker  | de Click it! button 5 keer wordt ingedrukt             | Thief     |
-	| uploader | een bestand wordt geüpload                             | Knight    |
+	| uploader | het "cotton candy" bestand wordt geüpload              | Knight    |
 	| typer    | het bericht "Lorem Ipsum" wordt getypt                 | Mage      |
 	| slider   | de slider voor 100 procent naar rechts wordt geschoven | Brigadier |
 
@@ -78,16 +90,32 @@ Scenario: H5 Het afronden van de vier tasks resulteert in een max level bevestig
 	#Play again mogelijk pas nadat alle vier de taken zijn afgerond. 
 	#Element licht op en af
 
-Scenario: BONUS Easter Egg: Misbruik kwetsbaarheid typer task resulteert in level 10 stats
-	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Mage"
+	#ook andere build types
+Scenario: BONUS Easter Egg Typer: Misbruik kwetsbaarheid typer task resulteert in level 10 stats voor elke build
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "<BuildType>"
 	When het bericht "Lorem Ipsum" wordt getypt
-	And in totaal 9 keer de typer blokkade wordt uitgeschakeld en vervolgens het bericht "Lorem Ipsum" wordt getypt
+	And in totaal <Aantal> keer de typer blokkade wordt uitgeschakeld en vervolgens het bericht "Lorem Ipsum" wordt getypt
 	Then zijn de waarden voor alle stats gelijk aan level 10
 
-Scenario: BONUS Easter Egg: Misbruik kwetsbaarheid uploader task resulteert in level 10 stats
-	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Mage"
+Examples:
+	| BuildType | Aantal |
+	| Thief     |	8	 |
+	| Knight    |	8	 |
+	| Mage      |	9	 |
+	| Brigadier |	8	 |
 
-	
+Scenario: BONUS Easter Egg Uploader: Misbruik kwetsbaarheid uploader task resulteert in level 10 stats voor elke build
+	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "<BuildType>"
+	When het "cotton candy" bestand wordt geüpload
+	And gedurende <Aantal> iteraties wordt de uploaderblokkade uitgeschakeld met uploaden "rock in the ocean" gevolgd door "cotton candy" bestand
+	Then zijn de waarden voor alle stats gelijk aan level 10
+
+Examples:
+	| BuildType | Aantal |
+	| Thief     |	4	 |
+	| Knight    |	4	 |
+	| Mage      |	5	 |
+	| Brigadier |	4	 |
 
 
 #Unhappy
@@ -107,7 +135,7 @@ Scenario: U2 Uploader - Zo lang er geen bestand is geüpload, is er geen level u
 	Given dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type "Mage"
 	Then verschijnt voor de task "uploader" geen bevestigingsbericht
 	And zijn de waarden voor stats en level 0 hoger dan bij aanvang op de adventure play page pagina
-	When een bestand wordt geüpload
+	When het "cotton candy" bestand wordt geüpload
 	Then verschijnt voor de task "uploader" het bijbehorende bevestigingsbericht
 	And zijn de waarden voor stats en level 1 hoger dan bij aanvang op de adventure play page pagina
 

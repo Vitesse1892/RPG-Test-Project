@@ -43,7 +43,14 @@ namespace RpgUiTests.Pages
 
         private const string EnableElementScript = "arguments[0].disabled = false;";
         private const string FilesFolder = "Files";
-        private const string CottonCandyFile = "cotton candy.jpg";
+
+        private static readonly IReadOnlyDictionary<string, string> FileMap =
+        new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["cotton candy"] = "cotton candy.jpg",
+            ["rock in the ocean"] = "rock in the ocean.jpg"
+        };
+
         private const int MAX_STATS_WAARDE = 10;
 
 
@@ -97,6 +104,25 @@ namespace RpgUiTests.Pages
             _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
         }
 
+
+        public void EnableUploaderElementAndUploadFile(int iterations, string fileName1, string fileName2)
+        {
+            var files = new[] { fileName1, fileName2 };
+
+            for (int i = 0; i < iterations; i++)
+            {
+                foreach (var fileName in files)
+                {
+                    EnableElement(fileInput);
+                    UploadFile(fileName);
+                }
+            }
+
+            var currentStats = _commonPage.GetCharacterStats();
+            _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
+        }
+
+
         private void EnableElement(IWebElement element)
         {
             ((IJavaScriptExecutor)_driverFixture.Driver).ExecuteScript(EnableElementScript, element);
@@ -115,18 +141,16 @@ namespace RpgUiTests.Pages
 
         public void UploadFile(string fileName)
         {
-            if (fileName.Equals("cotton candy", StringComparison.OrdinalIgnoreCase))
+            if (!FileMap.TryGetValue(fileName, out var resolvedFileName))
             {
-                fileName = CottonCandyFile;
+                throw new ArgumentException(
+                    $"De in de feature file opgegeven fileName '{fileName}' bestaat niet in de files folder. " +
+                    $"Toegestane waarden zijn: {string.Join(", ", FileMap.Keys)}");
             }
 
-            //Hier nog toevoegen tweede file ivm BONUS
-
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FilesFolder, fileName);
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FilesFolder, resolvedFileName);
             fileInput.SendKeys(filePath);
             
-            //fileInput.SendKeys(@"C:\Users\leroy\source\repos\RPG Test Project\RpgUiTests\Files\cotton candy.jpg");
-            //Set de current stats, zodat te verifiëren is of de actie gevolgen heeft gehad op de hoogte van de stats
             var currentStats = _commonPage.GetCharacterStats();
             _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
         }

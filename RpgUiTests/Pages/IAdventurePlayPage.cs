@@ -17,6 +17,7 @@ namespace RpgUiTests.Pages
         void AssertConfirmationMessageForMaxLevel();
         void EnableClickerButton();
         void EnableTyperButtonAndTypeMessage(int iterations, string message);
+        void EnableUploaderElementAndUploadFile(int aantalIteraties, string fileName1, string fileName2);
         void AssertAllStatsHaveMaxLevel();
     }
 }

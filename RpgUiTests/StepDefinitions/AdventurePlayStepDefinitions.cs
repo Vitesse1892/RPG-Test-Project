@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Io.Cucumber.Messages.Types;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Reqnroll;
 using RpgFramework;
 using RpgUiTests.Domain;
@@ -118,6 +119,13 @@ namespace RpgUiTests.StepDefinitions
         {
             _AdventurePlayPage.UploadFile(fileName);
         }
+
+        [When("gedurende {int} iteraties wordt de uploaderblokkade uitgeschakeld met uploaden {string} gevolgd door {string} bestand")]
+        public void WhenGedurendeIteratiesWordtDeUploaderblokkadeUitgeschakeldMetUploadenGevolgdDoorBestand(int aantalIteraties, string fileName1, string fileName2)
+        {
+            _AdventurePlayPage.EnableUploaderElementAndUploadFile(aantalIteraties, fileName1, fileName2);
+        }
+
 
 
         [When("het bericht {string} wordt getypt")]
