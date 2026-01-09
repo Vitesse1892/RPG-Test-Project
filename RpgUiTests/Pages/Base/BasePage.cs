@@ -10,18 +10,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RpgUiTests.Pages
+namespace RpgUiTests.Pages.Base
 {
-    public class CommonPage : ICommonPage
+    public class BasePage : IBasePage
     {
         private readonly IDriverWait _driver;
         private readonly IDriverFixture _driverFixture;
 
-        public CommonPage(IDriverWait driver, IDriverFixture driverFixture)
+        public BasePage(IDriverWait driver, IDriverFixture driverFixture)
         {
             _driver = driver;
             _driverFixture = driverFixture;
         }
+
+        private IWebElement GetBtnElm(string btnTxt) => _driver.FindElement(By.XPath($"//*[self::a or self::button][contains(text(), '{btnTxt}') or contains(text(), '{btnTxt}')]"));
 
         private IWebElement GetPageHeaderElm(string headerText) => _driver.FindElement(By.XPath($"//h3[normalize-space(text())='{headerText}']"));
         private IWebElement txtHeaderCharacterName => _driver.FindElement(By.XPath("//h3[@data-testid='character-name']"));
@@ -33,6 +35,8 @@ namespace RpgUiTests.Pages
         private IWebElement valueLevel => _driver.FindElement(By.XPath("//div[@data-character-stats='Level']//span"));
 
 
+        public void ClickButtonByText(string btnTxt){ GetBtnElm(btnTxt).Click(); }
+       
         public bool IsOnPage(string cardName)
         {
             try { return GetPageHeaderElm(cardName).Displayed; }

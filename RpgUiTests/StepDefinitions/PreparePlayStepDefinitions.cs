@@ -3,7 +3,9 @@ using Io.Cucumber.Messages.Types;
 using Reqnroll;
 using RpgFramework;
 using RpgUiTests.Models;
-using RpgUiTests.Pages;
+using RpgUiTests.Pages.Base;
+using RpgUiTests.Pages.PreparePage;
+using RpGuiTests.Domain;
 using System;
 
 
@@ -14,17 +16,13 @@ namespace RpgUiTests.StepDefinitions
     {
         private readonly ScenarioContext _scenarioContext;
         private readonly IPreparePlayPage _PreparePlayPage;
+        private readonly IBasePage _BasePage;
 
-        public PreparePlayStepDefinitions(ScenarioContext scenarioContext, IPreparePlayPage preparePlayPage)
+        public PreparePlayStepDefinitions(ScenarioContext scenarioContext, IPreparePlayPage preparePlayPage, IBasePage basePage)
         {
             _scenarioContext = scenarioContext;
             _PreparePlayPage = preparePlayPage;
-        }
-
-        [Given("dat ik op de Click here to play button klik")]
-        public void GivenDatIkOpDeClickHereToPlayButtonKlik()
-        {
-            _PreparePlayPage.ClickClickHereToPlaybtn();
+            _BasePage = basePage;
         }
 
 
@@ -35,8 +33,6 @@ namespace RpgUiTests.StepDefinitions
             var characterNameAndBuild = table.CreateInstance<CharacterOverviewDto>();
 
             _PreparePlayPage.ChooseNameAndSelectBuild(characterNameAndBuild);
-
-            _scenarioContext.Set(characterNameAndBuild);
         }
 
         [Then("zie ik geen character name error message")]
@@ -45,12 +41,6 @@ namespace RpgUiTests.StepDefinitions
             _PreparePlayPage.AssertNameErrorMessageIsNotVisible();
         }
 
-
-        [When("ik op de Start! button klik")]
-        public void WhenIkOpDeStartButtonKlik()
-        {
-            _PreparePlayPage.ClickStartBtn();
-        }
 
         [Then("zie ik de character name error message: {string}")]
         public void ThenZieIkDeCharacterNameErrorMessage(string expErrMsg)
@@ -61,13 +51,25 @@ namespace RpgUiTests.StepDefinitions
         [Then("zie ik de juiste character name, build type en stats waarden in het overzicht")]
         public void ThenZieIkDeJuisteCharacterNameBuildTypeEnStatsWaardenInHetOverzicht(Table table)
         {
-            var expData = table.CreateInstance<CharacterOverviewDto>();
+            // Data uit Gherkin, stats en level zijn nog leeg
+            var input = table.CreateInstance<CharacterOverviewDto>();
 
-            _PreparePlayPage.AssertDataBindingCharacterName(expData);
-            _PreparePlayPage.AssertDataBindingBuildType(expData);
-            _PreparePlayPage.AssertStats(expData);
+            // Verwachte stats vanuit Domain
+            var expectedStats = BuildStatsRepository.Stats[input.BuildType];
 
-            _scenarioContext.Set(expData);
+            // Combineer tot expected overview
+            var expectedOverview = input with
+            {
+                Strength = expectedStats.Strength,
+                Agility = expectedStats.Agility,
+                Wisdom = expectedStats.Wisdom,
+                Magic = expectedStats.Magic,
+                Level = expectedStats.Level
+            };
+
+            _PreparePlayPage.AssertDataBindingCharacterName(expectedOverview);
+            _PreparePlayPage.AssertDataBindingBuildType(expectedOverview);
+            _PreparePlayPage.AssertStats(expectedOverview);
         }
 
 

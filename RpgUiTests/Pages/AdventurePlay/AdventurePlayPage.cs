@@ -4,7 +4,7 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using RpgFramework.Driver;
 using RpgFramework.Extensions;
-using RpgUiTests.Domain;
+using RpgUiTests.Ui;
 using RpgUiTests.Models;
 using System;
 using System.Collections.Generic;
@@ -13,27 +13,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using static TechTalk.SpecFlow.Configuration.AppConfig.GeneratorConfigElement;
+using RpgUiTests.Pages.Base;
 
-namespace RpgUiTests.Pages
+namespace RpgUiTests.Pages.AdventurePlay
 {
     public class AdventurePlayPage : IAdventurePlayPage
     {
         private readonly IDriverWait _driver;
         private readonly IDriverFixture _driverFixture;
         private readonly ScenarioContext _scenarioContext;
-        private readonly ICommonPage _commonPage;
+        private readonly IBasePage _basePage;
 
-        public AdventurePlayPage(IDriverWait driver, IDriverFixture driverFixture, ScenarioContext scenarioContext, ICommonPage commonPage)
+        public AdventurePlayPage(IDriverWait driver, IDriverFixture driverFixture, ScenarioContext scenarioContext, IBasePage commonPage)
         {
             _driver = driver;
             _driverFixture = driverFixture;
             _scenarioContext = scenarioContext;
-            _commonPage = commonPage;
+            _basePage = commonPage;
         }
 
-        private IWebElement btnClickIt => _driver.FindElement(By.XPath("//button[contains(normalize-space(.), 'Click me') and contains(normalize-space(.), 'times')]"));
+        //private IWebElement btnClickIt => _driver.FindElement(By.XPath("//button[contains(normalize-space(.), 'Click me') and contains(normalize-space(.), 'times')]"));
         private IWebElement GetConfirmMsgElm(string task) => _driver.FindElement(By.XPath($"//span[@data-task='{task}']"));
+        private IWebElement btnClickIt => _driver.FindElement(By.XPath("//button[contains(normalize-space(.), 'Click me') and contains(normalize-space(.), 'times')]"));
         private IEnumerable<IWebElement> GetConfirmMsgElms(string task) => _driverFixture.Driver.FindElements(By.XPath($"//span[@data-task='{task}']"));
+        private IEnumerable<IWebElement> GetBtnElms(string btnTxt) => _driverFixture.Driver.FindElements(By.XPath($"//*[self::a or self::button][contains(text(), '{btnTxt}') or contains(text(), '{btnTxt}')]"));
         private IWebElement fileInput => _driver.FindElement(By.XPath("//input[@type='file' and contains(@class, 'border-input')]"));
         private IWebElement txtInpFieldToType => _driver.FindElement(By.XPath("//input[contains(@class,'rounded-md') and not(@type='file')]"));
         private IWebElement sliderThumb => _driver.FindElement(By.XPath("//span[@role='slider']"));
@@ -61,7 +64,7 @@ namespace RpgUiTests.Pages
                 btnClickIt.Click();
 
                 //Set de current stats na iedere klik, zodat te verifiëren is of de actie gevolgen heeft gehad op de hoogte van de stats
-                var currentStats = _commonPage.GetCharacterStats();
+                var currentStats = _basePage.GetCharacterStats();
                 _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
             }
         }
@@ -75,12 +78,29 @@ namespace RpgUiTests.Pages
         public void AssertTaskConfirmationMessageForSpecificTaskIsNotVisible(string task)
         {
             int taskMsgElementsCount = GetConfirmMsgElms(task).Count();
-            taskMsgElementsCount.Should().Be(0, $"Expected no confirmation messages to be shown for the specified task, but found \"{taskMsgElementsCount}\" error element(s).");
+            taskMsgElementsCount.Should().Be(0, $"Expected no confirmation messages to be shown for the specified task, but found \"{taskMsgElementsCount}\".");
         }
+
+        public void AssertButtonTextVisibility(string buttonText, bool shouldBeVisible)
+        {
+            int buttonCount = GetBtnElms(buttonText).Count(e => e.Displayed);
+
+            if (shouldBeVisible)
+            {
+                buttonCount.Should().Be(1,
+                    $"Expected button \"{buttonText}\" to be visible, but it was not.");
+            }
+            else
+            {
+                buttonCount.Should().Be(0,
+                    $"Expected button \"{buttonText}\" not to be visible, but it was found.");
+            }
+        }
+
 
         public void AssertConfirmationMessageForMaxLevel()
         {
-            var expMaxLvlConfMsg = TaskTypeExtensions.GetMaxLevelMessage();
+            var expMaxLvlConfMsg = ConfirmationMessages.GetMaxLevelMessage();
             string actMaxLvlConfMsg = txtMaxLvlConfMsg.Text.Trim();
             actMaxLvlConfMsg.Should().Be(expMaxLvlConfMsg, $"Confirmation message issue: Expected message to be \"{expMaxLvlConfMsg}\", but found \"{actMaxLvlConfMsg}\"");
 
@@ -100,7 +120,7 @@ namespace RpgUiTests.Pages
                 TypeMessage(message);
             }
 
-            var currentStats = _commonPage.GetCharacterStats();
+            var currentStats = _basePage.GetCharacterStats();
             _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
         }
 
@@ -118,7 +138,7 @@ namespace RpgUiTests.Pages
                 }
             }
 
-            var currentStats = _commonPage.GetCharacterStats();
+            var currentStats = _basePage.GetCharacterStats();
             _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
         }
 
@@ -151,7 +171,7 @@ namespace RpgUiTests.Pages
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FilesFolder, resolvedFileName);
             fileInput.SendKeys(filePath);
             
-            var currentStats = _commonPage.GetCharacterStats();
+            var currentStats = _basePage.GetCharacterStats();
             _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
         }
 
@@ -160,7 +180,7 @@ namespace RpgUiTests.Pages
             txtInpFieldToType.ClearAndEnterText(message);
 
             //Set de current stats, zodat te verifiëren is of de actie gevolgen heeft gehad op de hoogte van de stats
-            var currentStats = _commonPage.GetCharacterStats();
+            var currentStats = _basePage.GetCharacterStats();
             _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
         }
 
@@ -175,7 +195,7 @@ namespace RpgUiTests.Pages
             for (int i = 0; i < totalClicks; i++)
             {
                 btnClickIt.Click();
-                System.Threading.Thread.Sleep(100);
+                Thread.Sleep(100);
 
                 string expectedText = $"Click me {totalClicks - i - 1} times";
                 string actualText = btnClickIt.Text;
@@ -186,6 +206,10 @@ namespace RpgUiTests.Pages
 
         public void SlideToRight(int percentage)
         {
+            //Ik wil ivm robuustheid van de methode een percentage die een veelvoud van 10 is, omdat een percentage van 98 of 99 procent ook al kan leiden tot de confirmation message
+            if (percentage < 0 || percentage > 100) throw new ArgumentOutOfRangeException(nameof(percentage), $"Percentage moet tussen 0 en 100 liggen. Invoer: {percentage}"); // Check of het percentage tussen 0 en 100 ligt
+            if (percentage % 10 != 0) throw new ArgumentException($"Percentage moet een veelvoud van 10 zijn (0, 10, 20, …, 100). Invoer: {percentage}"); // Check of het percentage een veelvoud van 10 is
+
             Actions actions = new Actions(_driverFixture.Driver);
             
             int trackWidth = sliderTrack.Size.Width;                                                           // dit geeft breedte in pixels 
@@ -197,7 +221,7 @@ namespace RpgUiTests.Pages
                     .Perform();                                                                                //Voert de actie uit
 
             //Set de current stats, zodat te verifiëren is of de actie gevolgen heeft gehad op de hoogte van de stats
-            var currentStats = _commonPage.GetCharacterStats();
+            var currentStats = _basePage.GetCharacterStats();
             _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
         }
 
@@ -256,10 +280,6 @@ namespace RpgUiTests.Pages
             Assert.AreEqual(shouldBeEnabled, isEnabled, $"Task element '{task}' zou {(shouldBeEnabled ? "enabled" : "disabled")} moeten zijn, maar is dat niet.");
             //(isDisabled, $"Task element '{task}' zou disabled moeten zijn, maar is dat niet.");
         }
-
-        
-
-
 
 
     }

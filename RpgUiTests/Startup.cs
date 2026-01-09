@@ -2,7 +2,9 @@
 using Reqnroll.Microsoft.Extensions.DependencyInjection;
 using RpgFramework.Config;
 using RpgFramework.Driver;
-using RpgUiTests.Pages;
+using RpgUiTests.Pages.AdventurePlay;
+using RpgUiTests.Pages.Base;
+using RpgUiTests.Pages.PreparePage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +26,7 @@ public class Startup
                 .AddScoped<IDriverWait, DriverWait>()
                 .AddScoped<IPreparePlayPage, PreparePlayPage>()
                 .AddScoped<IAdventurePlayPage, AdventurePlayPage>()
-                .AddScoped<ICommonPage, CommonPage>()
+                .AddScoped<IBasePage, BasePage>()
                 .AddScoped<ScenarioContext>();
 
         return services;

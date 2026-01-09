@@ -1,14 +1,12 @@
 ﻿using RpgUiTests.Models;
 
-namespace RpgUiTests.Pages
+namespace RpgUiTests.Pages.PreparePage
 {
     public interface IPreparePlayPage
     {
-        void ClickClickHereToPlaybtn();
         void ChooseName(CharacterOverviewDto character);
         void SelectBuild(CharacterOverviewDto character);
         void ChooseNameAndSelectBuild(CharacterOverviewDto character);
-        void ClickStartBtn();
         void AssertErrMsgCharacterName(string errorMessage);
         void AssertNameErrorMessageIsNotVisible();
         void AssertDataBindingCharacterName(CharacterOverviewDto expectedData);

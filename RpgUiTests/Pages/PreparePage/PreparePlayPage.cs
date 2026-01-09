@@ -9,8 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
-namespace RpgUiTests.Pages
+namespace RpgUiTests.Pages.PreparePage
 {
     public class PreparePlayPage : IPreparePlayPage
     {
@@ -23,8 +24,6 @@ namespace RpgUiTests.Pages
             _driverFixture = driverFixture;
         }
 
-        private IWebElement btnClickHereToPlay => _driver.FindElement(By.XPath("//a[@href='/play' and contains(text(), 'Click here to play')]"));
-        private IWebElement btnStart => _driver.FindElement(By.XPath("//button[contains(text(), 'Start!')]"));
         private IWebElement txtInpFieldCharacterName => _driver.FindElement(By.XPath("//input[@placeholder='Galactic space lord']"));
         private IWebElement txtHeaderCharacterName => _driver.FindElement(By.XPath("//h3[@data-testid='character-name']"));
         private IWebElement ddlBuildType => _driver.FindElement(By.XPath("//select[@aria-hidden='true']"));
@@ -39,8 +38,7 @@ namespace RpgUiTests.Pages
         private IWebElement valueLevel => _driver.FindElement(By.XPath("//div[@data-character-stats='Level']//span"));
 
 
-        public void ClickClickHereToPlaybtn() => btnClickHereToPlay.Click();
-        public void ClickStartBtn() => btnStart.Click();
+
 
         public void ChooseName(CharacterOverviewDto character)
         {

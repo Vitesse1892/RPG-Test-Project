@@ -1,6 +1,6 @@
 ﻿using RpgUiTests.Models;
 
-namespace RpgUiTests.Pages
+namespace RpgUiTests.Pages.AdventurePlay
 {
     public interface IAdventurePlayPage
     {
@@ -19,5 +19,6 @@ namespace RpgUiTests.Pages
         void EnableTyperButtonAndTypeMessage(int iterations, string message);
         void EnableUploaderElementAndUploadFile(int aantalIteraties, string fileName1, string fileName2);
         void AssertAllStatsHaveMaxLevel();
+        void AssertButtonTextVisibility(string buttonText, bool zichtbaar);
     }
 }

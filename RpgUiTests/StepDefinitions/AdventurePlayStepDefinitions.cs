@@ -3,10 +3,13 @@ using Io.Cucumber.Messages.Types;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Reqnroll;
 using RpgFramework;
-using RpgUiTests.Domain;
 using RpgUiTests.Models;
-using RpgUiTests.Pages;
+using RpgUiTests.Pages.AdventurePlay;
+using RpgUiTests.Pages.Base;
+using RpgUiTests.Pages.PreparePage;
+using RpgUiTests.Ui;
 using System;
+using System.Threading.Tasks;
 
 
 namespace RpgUiTests.StepDefinitions
@@ -17,14 +20,14 @@ namespace RpgUiTests.StepDefinitions
         private readonly ScenarioContext _scenarioContext;
         private readonly IPreparePlayPage _PreparePlayPage;
         private readonly IAdventurePlayPage _AdventurePlayPage;
-        private readonly ICommonPage _CommonPage;
+        private readonly IBasePage _BasePage;
 
-        public AdventurePlayStepDefinitions(ScenarioContext scenarioContext, IPreparePlayPage preparePlayPage, IAdventurePlayPage adventurePlayPage, ICommonPage commonPage)
+        public AdventurePlayStepDefinitions(ScenarioContext scenarioContext, IPreparePlayPage preparePlayPage, IAdventurePlayPage adventurePlayPage, IBasePage basePage)
         {
             _scenarioContext = scenarioContext;
             _PreparePlayPage = preparePlayPage;
             _AdventurePlayPage = adventurePlayPage;
-            _CommonPage = commonPage;
+            _BasePage = basePage;
         }
 
         [Given("dat ik de juiste handelingen heb verricht om op de play adventure pagina terecht te komen met character build type {string}")]
@@ -42,20 +45,35 @@ namespace RpgUiTests.StepDefinitions
             const string cardNamePreparePlayPage = "Choose a name and build";
             const string cardNameAdventurePlayPage = "Adventure time";
 
-            _PreparePlayPage.ClickClickHereToPlaybtn();
-            _CommonPage.IsOnPage(cardNamePreparePlayPage);
+            _BasePage.ClickButtonByText("Click here to play");
+            _BasePage.IsOnPage(cardNamePreparePlayPage);
             _PreparePlayPage.ChooseNameAndSelectBuild(characterNameAndBuild);
 
-            var statsCharBuildPreparePage = _CommonPage.GetCharacterStats();
-            _scenarioContext.Set(statsCharBuildPreparePage, "PreparePageStats"); 
+            var statsCharBuildPreparePage = _BasePage.GetCharacterStats();
+            _scenarioContext.Set(statsCharBuildPreparePage, "PreparePageStats");
 
-            _PreparePlayPage.ClickStartBtn();
-            _CommonPage.IsOnPage(cardNameAdventurePlayPage); //Bevestiging belangrijk, ivm assertion stats tussen prepare en adventure page icm gelijke elementen
+            _BasePage.ClickButtonByText("Start!");
+            _BasePage.IsOnPage(cardNameAdventurePlayPage); //Bevestiging belangrijk, ivm assertion stats tussen prepare en adventure page icm gelijke elementen
 
-            var statsCharBuildAdventurePage = _CommonPage.GetCharacterStats();
+            var statsCharBuildAdventurePage = _BasePage.GetCharacterStats();
             _scenarioContext.Set(statsCharBuildPreparePage, "AdventurePageStatsFromStart");
             _scenarioContext.Set(statsCharBuildPreparePage, "AdventurePageStatsCurrent");
         }
+
+        [Given("dat ik alle taken succesvol heb afgerond")]
+        public void GivenDatIkAlleTakenSuccesvolHebAfgerond()
+        {
+            const int numberOfClicksSuccess = 5;
+            const string uploadfileSuccess = "cotton candy";
+            const string messageSuccess = "Lorem Ipsum";
+            const int slidePErcentageSuccess = 100;
+
+            _AdventurePlayPage.ClickTheClickItBtn(numberOfClicksSuccess);
+            _AdventurePlayPage.UploadFile(uploadfileSuccess);
+            _AdventurePlayPage.TypeMessage(messageSuccess);
+            _AdventurePlayPage.SlideToRight(slidePErcentageSuccess);
+        }
+
 
 
         [When("de Click it! button {int} keer wordt ingedrukt")]
@@ -78,12 +96,12 @@ namespace RpgUiTests.StepDefinitions
             //Get confirmation message van domain extension die je vervolgens wil asserten
             if (!Enum.TryParse<TaskType>(task, true, out var taskType))
                 throw new ArgumentException($"Ongeldige task opgegeven: '{task}'. Geldige waarden zijn: {string.Join(", ", Enum.GetNames(typeof(TaskType)))}");
-            var confirmationMessage = taskType.GetConfirmationMessage();
+            var confirmationMessage = ConfirmationMessages.GetMessage(taskType);
 
             _AdventurePlayPage.AssertConfirmationMessageForFinishedTask(task, confirmationMessage);
 
             //Later wil je verifiëren of de huidige waarden voor stats en level zijn opgehoogd
-            var statsCharBuildPreparePage = _CommonPage.GetCharacterStats();
+            var statsCharBuildPreparePage = _BasePage.GetCharacterStats();
             _scenarioContext.Set(statsCharBuildPreparePage, "AdventurePageStatsCurrent");
         }
 
@@ -138,10 +156,6 @@ namespace RpgUiTests.StepDefinitions
         [When("de slider voor {int} procent naar rechts wordt geschoven")]
         public void WhenDeSliderVoorProcentNaarRechtsWordtGeschoven(int percentage)
         {
-            //Ik wil ivm robuustheid van de methode een percentage die een veelvoud van 10 is, omdat een percentage van 98 of 99 procent ook al kan leiden tot de confirmation message
-            if (percentage < 0 || percentage > 100) throw new ArgumentOutOfRangeException(nameof(percentage), $"Percentage moet tussen 0 en 100 liggen. Invoer: {percentage}"); // Check of het percentage tussen 0 en 100 ligt
-            if (percentage % 10 != 0) throw new ArgumentException($"Percentage moet een veelvoud van 10 zijn (0, 10, 20, …, 100). Invoer: {percentage}"); // Check of het percentage een veelvoud van 10 is
-
             _AdventurePlayPage.SlideToRight(percentage);
         }
 
@@ -179,10 +193,15 @@ namespace RpgUiTests.StepDefinitions
             _AdventurePlayPage.AssertTaskElementState(task, shouldBeEnabled: false);
         }
 
-        
 
 
-
-
+        [Then(@"is de ""(.*)"" button (wel|niet) zichtbaar")]
+        public void ThenIsDeButtonWelOfNietZichtbaar(string buttonText, string zichtbaar)
+        {
+            _AdventurePlayPage.AssertButtonTextVisibility(
+                buttonText,
+                zichtbaar == "wel"
+            );
+        }
     }
 }

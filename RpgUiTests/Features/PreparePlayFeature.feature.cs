@@ -44,9 +44,9 @@ namespace RpgUiTests.Features
                 " vervolgens voorziet van invalide waarde, krijg je ze validatie-error direct te " +
                 "zien zonder dat je hiervoor op de de \"Start!\" button moet klikken.\r\n\t- Via data " +
                 "binding is de ingevulde character name en geselecteerde build direct zichtbaar i" +
-                "n het overzicht. \r\n\t- Iedere build (Strength, Agility, Wisdom, Magic) heeft eige" +
-                "n stats waarden, zichtbaar wanneer build geselecteerd is. Level is altijd gelijk" +
-                " aan 1 bij aanvang.", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+                "n het overzicht. \r\n\t- Iedere build (Thief, Knight, Mage, Brigadier) heeft bij se" +
+                "lectie vaste stats waarden (zie Domain folder), zichtbaar in FE wanneer build ge" +
+                "selecteerd is. Thief is by default geselecteerd.", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
 #line 1 "PreparePlayFeature.feature"
 #line hidden
@@ -150,7 +150,7 @@ namespace RpgUiTests.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("H1. Kies een geldige character name, selecteer een build en start het spel", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 16
+#line 15
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -160,10 +160,10 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 17
- await testRunner.GivenAsync("dat ik op de Click here to play button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 16
+ await testRunner.GivenAsync("ik op de button klik met de tekst \"Click here to play\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 18
+#line 17
  await testRunner.ThenAsync("wordt de juiste pagina getoond met de card \"Choose a name and build\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
                 global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
@@ -172,13 +172,13 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
                 table1.AddRow(new string[] {
                             "Spelersnaam",
                             "Brigadier"});
-#line 19
+#line 18
  await testRunner.WhenAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table1, "When ");
 #line hidden
-#line 22
- await testRunner.AndAsync("ik op de Start! button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line 21
+ await testRunner.AndAsync("ik op de button klik met de tekst \"Start!\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 23
+#line 22
  await testRunner.ThenAsync("wordt de juiste pagina getoond met de card \"Adventure time\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -207,7 +207,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             {
                 await this.ScenarioStartAsync();
 #line 26
- await testRunner.GivenAsync("dat ik op de Click here to play button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.GivenAsync("ik op de button klik met de tekst \"Click here to play\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
                             "CharacterName",
@@ -222,7 +222,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
  await testRunner.ThenAsync("zie ik geen character name error message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 31
- await testRunner.WhenAsync("ik op de Start! button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("ik op de button klik met de tekst \"Start!\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 32
  await testRunner.ThenAsync("zie ik de character name error message: \"Name must be at least 3 characters\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -268,33 +268,26 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("H3. Selecteer iedere build en controleer de juiste stats waarden")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("H3. Selecteer iedere build en controleer de juiste stats waarden")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("H3. Iedere geselecteerde build heeft eigen stats-waarden")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("H3. Iedere geselecteerde build heeft eigen stats-waarden")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "PreparePlayFeature")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam123", "Thief", "1", "6", "2", "1", "1", "2", null, DisplayName="H3. Selecteer iedere build en controleer de juiste stats waarden(Spelersnaam123,T" +
-            "hief,1,6,2,1,1,2)")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam234", "Knight", "6", "2", "1", "1", "1", "3", null, DisplayName="H3. Selecteer iedere build en controleer de juiste stats waarden(Spelersnaam234,K" +
-            "night,6,2,1,1,1,3)")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam345", "Mage", "0", "1", "3", "6", "1", "4", null, DisplayName="H3. Selecteer iedere build en controleer de juiste stats waarden(Spelersnaam345,M" +
-            "age,0,1,3,6,1,4)")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam456", "Brigadier", "3", "1", "6", "1", "1", "5", null, DisplayName="H3. Selecteer iedere build en controleer de juiste stats waarden(Spelersnaam456,B" +
-            "rigadier,3,1,6,1,1,5)")]
-        public async global::System.Threading.Tasks.Task H3_SelecteerIedereBuildEnControleerDeJuisteStatsWaarden(string characterName, string buildType, string strength, string agility, string wisdom, string magic, string level, string @__pickleIndex, string[] exampleTags)
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam123", "Thief", "2", null, DisplayName="H3. Iedere geselecteerde build heeft eigen stats-waarden(Spelersnaam123,Thief,2)")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam234", "Knight", "3", null, DisplayName="H3. Iedere geselecteerde build heeft eigen stats-waarden(Spelersnaam234,Knight,3)" +
+            "")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam345", "Mage", "4", null, DisplayName="H3. Iedere geselecteerde build heeft eigen stats-waarden(Spelersnaam345,Mage,4)")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Spelersnaam456", "Brigadier", "5", null, DisplayName="H3. Iedere geselecteerde build heeft eigen stats-waarden(Spelersnaam456,Brigadier" +
+            ",5)")]
+        public async global::System.Threading.Tasks.Task H3_IedereGeselecteerdeBuildHeeftEigenStats_Waarden(string characterName, string buildType, string @__pickleIndex, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("CharacterName", characterName);
             argumentsOfScenario.Add("BuildType", buildType);
-            argumentsOfScenario.Add("Strength", strength);
-            argumentsOfScenario.Add("Agility", agility);
-            argumentsOfScenario.Add("Wisdom", wisdom);
-            argumentsOfScenario.Add("Magic", magic);
-            argumentsOfScenario.Add("Level", level);
             string pickleIndex = @__pickleIndex;
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("H3. Selecteer iedere build en controleer de juiste stats waarden", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("H3. Iedere geselecteerde build heeft eigen stats-waarden", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 46
+#line 47
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -304,8 +297,8 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 47
- await testRunner.GivenAsync("dat ik op de Click here to play button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 48
+ await testRunner.GivenAsync("ik op de button klik met de tekst \"Click here to play\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
                             "CharacterName",
@@ -313,35 +306,25 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
                 table6.AddRow(new string[] {
                             string.Format("{0}", characterName),
                             string.Format("{0}", buildType)});
-#line 48
+#line 49
  await testRunner.WhenAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table6, "When ");
 #line hidden
                 global::Reqnroll.Table table7 = new global::Reqnroll.Table(new string[] {
                             "CharacterName",
-                            "BuildType",
-                            "Strength",
-                            "Agility",
-                            "Wisdom",
-                            "Magic",
-                            "Level"});
+                            "BuildType"});
                 table7.AddRow(new string[] {
                             string.Format("{0}", characterName),
-                            string.Format("{0}", buildType),
-                            string.Format("{0}", strength),
-                            string.Format("{0}", agility),
-                            string.Format("{0}", wisdom),
-                            string.Format("{0}", magic),
-                            string.Format("{0}", level)});
-#line 51
+                            string.Format("{0}", buildType)});
+#line 52
  await testRunner.ThenAsync("zie ik de juiste character name, build type en stats waarden in het overzicht", ((string)(null)), table7, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("u1. Spel proberen te starten met character name die te kort is resulteert in erro" +
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("U1. Spel proberen te starten met character name die te kort is resulteert in erro" +
             "r message")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("u1. Spel proberen te starten met character name die te kort is resulteert in erro" +
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("U1. Spel proberen te starten met character name die te kort is resulteert in erro" +
             "r message")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "PreparePlayFeature")]
         public async global::System.Threading.Tasks.Task U1_SpelProberenTeStartenMetCharacterNameDieTeKortIsResulteertInErrorMessage()
@@ -349,11 +332,11 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "6";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("u1. Spel proberen te starten met character name die te kort is resulteert in erro" +
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("U1. Spel proberen te starten met character name die te kort is resulteert in erro" +
                     "r message", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 64
+#line 65
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -363,8 +346,8 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 65
- await testRunner.GivenAsync("dat ik op de Click here to play button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 66
+ await testRunner.GivenAsync("ik op de button klik met de tekst \"Click here to play\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
                             "CharacterName",
@@ -372,22 +355,22 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
                 table8.AddRow(new string[] {
                             "Hi",
                             "Mage"});
-#line 66
+#line 67
  await testRunner.AndAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table8, "And ");
 #line hidden
-#line 69
- await testRunner.WhenAsync("ik op de Start! button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
 #line 70
+ await testRunner.WhenAsync("ik op de button klik met de tekst \"Start!\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 71
  await testRunner.ThenAsync("zie ik de character name error message: \"Name must be at least 3 characters\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("u2. Spel proberen te starten met character name die te lang is resulteert in erro" +
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("U2. Spel proberen te starten met character name die te lang is resulteert in erro" +
             "r message")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("u2. Spel proberen te starten met character name die te lang is resulteert in erro" +
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("U2. Spel proberen te starten met character name die te lang is resulteert in erro" +
             "r message")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "PreparePlayFeature")]
         public async global::System.Threading.Tasks.Task U2_SpelProberenTeStartenMetCharacterNameDieTeLangIsResulteertInErrorMessage()
@@ -395,11 +378,11 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "7";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("u2. Spel proberen te starten met character name die te lang is resulteert in erro" +
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("U2. Spel proberen te starten met character name die te lang is resulteert in erro" +
                     "r message", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 72
+#line 74
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -409,8 +392,8 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 73
- await testRunner.GivenAsync("dat ik op de Click here to play button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 75
+ await testRunner.GivenAsync("ik op de button klik met de tekst \"Click here to play\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
                             "CharacterName",
@@ -418,13 +401,13 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
                 table9.AddRow(new string[] {
                             "HiHiHiHiHiHiHiHiHiHiH",
                             "Mage"});
-#line 74
+#line 76
  await testRunner.AndAsync("dat ik de character name invul en een build selecteer met onderstaande details", ((string)(null)), table9, "And ");
 #line hidden
-#line 77
- await testRunner.WhenAsync("ik op de Start! button klik", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 79
+ await testRunner.WhenAsync("ik op de button klik met de tekst \"Start!\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 78
+#line 80
  await testRunner.ThenAsync("zie ik de character name error message: \"Name cannot be longer than 20 characters" +
                         "\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
