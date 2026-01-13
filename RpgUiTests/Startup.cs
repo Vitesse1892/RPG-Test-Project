@@ -5,11 +5,6 @@ using RpgFramework.Driver;
 using RpgUiTests.Pages.AdventurePlay;
 using RpgUiTests.Pages.Base;
 using RpgUiTests.Pages.PreparePage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RpgUiTests;
 
@@ -20,9 +15,18 @@ public class Startup
     {
         var services = new ServiceCollection();
 
+        // Config toevoegen
+        var config = ConfigReader.ReadConfig();
+        services.AddSingleton(config); // TestSettings
+
+        // DriverFixture met TestSettings
+        services.AddScoped<IDriverFixture>(sp =>
+        {
+            var testSettings = sp.GetRequiredService<TestSettings>();
+            return new DriverFixture(testSettings);
+        });
+
         services
-                .AddSingleton(ConfigReader.ReadConfig())
-                .AddScoped<IDriverFixture, DriverFixture>()
                 .AddScoped<IDriverWait, DriverWait>()
                 .AddScoped<IPreparePlayPage, PreparePlayPage>()
                 .AddScoped<IAdventurePlayPage, AdventurePlayPage>()

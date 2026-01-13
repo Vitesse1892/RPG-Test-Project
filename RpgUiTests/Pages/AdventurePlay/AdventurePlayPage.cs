@@ -1,19 +1,11 @@
 ﻿using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
 using RpgFramework.Driver;
-using RpgFramework.Extensions;
-using RpgUiTests.Ui;
+using RpgUiTests.Extensions;
 using RpgUiTests.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static TechTalk.SpecFlow.Configuration.AppConfig.GeneratorConfigElement;
 using RpgUiTests.Pages.Base;
+using RpgUiTests.Ui;
 
 namespace RpgUiTests.Pages.AdventurePlay
 {
@@ -45,7 +37,7 @@ namespace RpgUiTests.Pages.AdventurePlay
         private IWebElement txtMaxLvlConfMsg => _driver.FindElement(By.XPath("//span[contains(text(), \"You've reached the highest level!\")]"));
 
         private const string EnableElementScript = "arguments[0].disabled = false;";
-        private const string FilesFolder = "Files";
+        private const string ImagesFolder = "TestAssets/Images";
 
         private static readonly IReadOnlyDictionary<string, string> FileMap =
         new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -168,9 +160,9 @@ namespace RpgUiTests.Pages.AdventurePlay
                     $"Toegestane waarden zijn: {string.Join(", ", FileMap.Keys)}");
             }
 
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FilesFolder, resolvedFileName);
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ImagesFolder, resolvedFileName);
             fileInput.SendKeys(filePath);
-            
+
             var currentStats = _basePage.GetCharacterStats();
             _scenarioContext.Set(currentStats, "AdventurePageStatsCurrent");
         }
@@ -191,7 +183,7 @@ namespace RpgUiTests.Pages.AdventurePlay
             string initialExpectedText = $"Click me {totalClicks} times";
             string initialActualText = btnClickIt.Text;
             if (initialActualText != initialExpectedText) throw new Exception($"Initiële tekst klopt niet. Verwacht: '{initialExpectedText}', maar kreeg: '{initialActualText}'");
-           
+
             for (int i = 0; i < totalClicks; i++)
             {
                 btnClickIt.Click();
@@ -211,7 +203,7 @@ namespace RpgUiTests.Pages.AdventurePlay
             if (percentage % 10 != 0) throw new ArgumentException($"Percentage moet een veelvoud van 10 zijn (0, 10, 20, …, 100). Invoer: {percentage}"); // Check of het percentage een veelvoud van 10 is
 
             Actions actions = new Actions(_driverFixture.Driver);
-            
+
             int trackWidth = sliderTrack.Size.Width;                                                           // dit geeft breedte in pixels 
             int offsetX = (int)Math.Round(trackWidth * (percentage / 100.0), MidpointRounding.AwayFromZero);   //Procentueel naar rechts bewegen 
 

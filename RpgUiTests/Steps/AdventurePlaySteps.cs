@@ -1,28 +1,22 @@
-using FluentAssertions;
-using Io.Cucumber.Messages.Types;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
-using Reqnroll;
-using RpgFramework;
 using RpgUiTests.Models;
 using RpgUiTests.Pages.AdventurePlay;
 using RpgUiTests.Pages.Base;
 using RpgUiTests.Pages.PreparePage;
 using RpgUiTests.Ui;
-using System;
-using System.Threading.Tasks;
+using RpgUiTests.UI;
 
 
 namespace RpgUiTests.StepDefinitions
 {
     [Binding]
-    public sealed class AdventurePlayStepDefinitions
+    public sealed class AdventurePlaySteps
     {
         private readonly ScenarioContext _scenarioContext;
         private readonly IPreparePlayPage _PreparePlayPage;
         private readonly IAdventurePlayPage _AdventurePlayPage;
         private readonly IBasePage _BasePage;
 
-        public AdventurePlayStepDefinitions(ScenarioContext scenarioContext, IPreparePlayPage preparePlayPage, IAdventurePlayPage adventurePlayPage, IBasePage basePage)
+        public AdventurePlaySteps(ScenarioContext scenarioContext, IPreparePlayPage preparePlayPage, IAdventurePlayPage adventurePlayPage, IBasePage basePage)
         {
             _scenarioContext = scenarioContext;
             _PreparePlayPage = preparePlayPage;

@@ -1,14 +1,6 @@
-﻿using FluentAssertions;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 using RpgFramework.Driver;
-using RpgFramework.Extensions;
 using RpgUiTests.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RpgUiTests.Pages.Base
 {
@@ -35,8 +27,8 @@ namespace RpgUiTests.Pages.Base
         private IWebElement valueLevel => _driver.FindElement(By.XPath("//div[@data-character-stats='Level']//span"));
 
 
-        public void ClickButtonByText(string btnTxt){ GetBtnElm(btnTxt).Click(); }
-       
+        public void ClickButtonByText(string btnTxt) { GetBtnElm(btnTxt).Click(); }
+
         public bool IsOnPage(string cardName)
         {
             try { return GetPageHeaderElm(cardName).Displayed; }

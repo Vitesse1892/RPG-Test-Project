@@ -1,16 +1,10 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.BiDi.BrowsingContext;
 using OpenQA.Selenium.Support.UI;
 using RpgFramework.Config;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RpgFramework.Driver;
 
-public class DriverWait: IDriverWait
+public class DriverWait : IDriverWait
 {
     private readonly IDriverFixture _driverFixture;
     private readonly TestSettings _testSettings;
@@ -26,7 +20,7 @@ public class DriverWait: IDriverWait
     public IWebElement FindElement(By elementLocator)
     {
         return _webDriverWait.Value.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(elementLocator));
-    }  
+    }
 
 
     public IEnumerable<IWebElement> FindElements(By elementLocator)

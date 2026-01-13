@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,18 +8,18 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
-    <None Remove="Files\cotton candy.jpg" />
-    <None Remove="Files\rock in the ocean.jpg" />
+    <None Remove="TestAssets\cotton candy.jpg" />
+    <None Remove="TestAssets\rock in the ocean.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\cotton candy.jpg">
+    <Content Include="TestAssets\Images\cotton candy.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\rock in the ocean.jpg">
+    <Content Include="TestAssets\Images\rock in the ocean.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -37,15 +37,15 @@
     <PackageReference Include="MSTest.TestAdapter" Version="3.10.2" />
     <PackageReference Include="MSTest.TestFramework" Version="3.10.2" />
     <PackageReference Include="Reqnroll.Tools.MsBuild.Generation" Version="3.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Drivers\" />
-    <Folder Include="Support\" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.39.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RpgFramework\RpgFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestResults\Screenshots\" />
   </ItemGroup>
 
 </Project>

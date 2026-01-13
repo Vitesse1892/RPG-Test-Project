@@ -1,26 +1,22 @@
 using FluentAssertions;
-using Io.Cucumber.Messages.Types;
-using Reqnroll;
-using RpgFramework;
 using RpgUiTests.Models;
 using RpgUiTests.Pages.Base;
 using RpgUiTests.Pages.PreparePage;
 using RpGuiTests.Domain;
-using System;
 
 
 
 namespace RpgUiTests.StepDefinitions
 {
     [Binding]
-    public sealed class BaseStepDefinitions
+    public sealed class BaseSteps
     {
         private readonly ScenarioContext _scenarioContext;
         private readonly IBasePage _basePage;
         private readonly IPreparePlayPage _preparePlayPage;
 
 
-        public BaseStepDefinitions(ScenarioContext scenarioContext, IBasePage basePage, IPreparePlayPage preparePlayPage)
+        public BaseSteps(ScenarioContext scenarioContext, IBasePage basePage, IPreparePlayPage preparePlayPage)
         {
             _scenarioContext = scenarioContext;
             _basePage = basePage;
@@ -34,7 +30,7 @@ namespace RpgUiTests.StepDefinitions
         {
             _basePage.ClickButtonByText(buttonText);
             //Als button tekst gelijk is aan "Play again" leg dan de nieuwe beginwaarden voor stats vast
-            
+
             if (buttonText.Equals("Play again", StringComparison.OrdinalIgnoreCase))
             {
                 //Leg nieuwe beginwaarden vast indien je opnieuw gaat spelen
@@ -51,7 +47,7 @@ namespace RpgUiTests.StepDefinitions
             _basePage.IsOnPage(cardName).Should().BeTrue($"Expected play page with card '{cardName}' to be shown");
         }
 
-        
+
 
         [Then("zie ik character {string} geselecteerd met de juiste startwaarden voor stats")]
         public void ThenZieIkCharacterGeselecteerdMetDeJuisteStartwaardenVoorStats(string buildTypeText)

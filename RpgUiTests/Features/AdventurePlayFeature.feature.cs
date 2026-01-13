@@ -54,7 +54,7 @@ namespace RpgUiTests.Features
                 "\t--> De uitschakeling van het element na het uploaden van de \"cotton candy\" file" +
                 " kan worden teruggedraaid. Door vervolgens de \"rock in the ocean\" te uploaden, \r" +
                 "\n\t\t\t\t\topnieuw de uitschakeling van het element na het uploaden terug te draaien " +
-                "en dit proces te herhalen, kun je max stats bereiken", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+                "en dit proces te herhalen, kun je max stats bereiken.", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
 #line 1 "AdventurePlayFeature.feature"
 #line hidden

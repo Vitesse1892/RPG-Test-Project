@@ -1,6 +1,4 @@
-﻿using RpgUiTests.Models;
-
-namespace RpgUiTests.Pages.AdventurePlay
+﻿namespace RpgUiTests.Pages.AdventurePlay
 {
     public interface IAdventurePlayPage
     {

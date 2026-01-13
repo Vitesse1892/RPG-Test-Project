@@ -1,15 +1,8 @@
 ﻿using FluentAssertions;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using RpgFramework.Driver;
-using RpgFramework.Extensions;
+using RpgUiTests.Extensions;
 using RpgUiTests.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace RpgUiTests.Pages.PreparePage
 {
@@ -50,7 +43,7 @@ namespace RpgUiTests.Pages.PreparePage
         public void ChooseNameAndSelectBuild(CharacterOverviewDto character)
         {
             txtInpFieldCharacterName.ClearAndEnterText(character.CharacterName);
-            ddlBuildType.SelectDropdownByText(character.BuildType.ToString()); 
+            ddlBuildType.SelectDropdownByText(character.BuildType.ToString());
         }
 
 
@@ -82,7 +75,7 @@ namespace RpgUiTests.Pages.PreparePage
         public void AssertDataBindingBuildType(CharacterOverviewDto expData)
         {
             var buildTypeSelected = txtSelFieldBuildType.Text.Trim().ToLowerInvariant();
-            
+
             var buildTypeHeaderFullText = txtHeaderBuildType.Text.Trim();
             var buildTypeHeaderSplit = buildTypeHeaderFullText.Split(' ').Last();
 

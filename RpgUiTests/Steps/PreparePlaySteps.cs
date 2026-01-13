@@ -1,24 +1,19 @@
-using FluentAssertions;
-using Io.Cucumber.Messages.Types;
-using Reqnroll;
-using RpgFramework;
 using RpgUiTests.Models;
 using RpgUiTests.Pages.Base;
 using RpgUiTests.Pages.PreparePage;
 using RpGuiTests.Domain;
-using System;
 
 
 namespace RpgUiTests.StepDefinitions
 {
     [Binding]
-    public sealed class PreparePlayStepDefinitions
+    public sealed class PreparePlaySteps
     {
         private readonly ScenarioContext _scenarioContext;
         private readonly IPreparePlayPage _PreparePlayPage;
         private readonly IBasePage _BasePage;
 
-        public PreparePlayStepDefinitions(ScenarioContext scenarioContext, IPreparePlayPage preparePlayPage, IBasePage basePage)
+        public PreparePlaySteps(ScenarioContext scenarioContext, IPreparePlayPage preparePlayPage, IBasePage basePage)
         {
             _scenarioContext = scenarioContext;
             _PreparePlayPage = preparePlayPage;
