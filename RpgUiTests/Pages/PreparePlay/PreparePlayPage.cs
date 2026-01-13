@@ -95,14 +95,12 @@ namespace RpgUiTests.Pages.PreparePage
             AssertStat("Level", valueLevel.Text.Trim(), expData.Level);
         }
 
-        public void AssertStat(string statName, string actualValue, int expectedValue)
+        private static void AssertStat(string statName, string actualValue, int expectedValue)
         {
             actualValue.Should().Be(
                 expectedValue.ToString(),
                 $"Expected {statName} value to be \"{expectedValue}\", but found \"{actualValue}\""
             );
         }
-
-
     }
 }

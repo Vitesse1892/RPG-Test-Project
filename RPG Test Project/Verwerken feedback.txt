@@ -1,0 +1,33 @@
+﻿https://test-rpg.vercel.app/
+Hier staat uitgelegd hoe je lokaal kunt runnen
+
+
+BE niet. Waarom selenium?
+Draaien stappen. 
+
+XX- Overbodige injections
+XXUsing kun je allemaal direct opruimen
+
+Optimaliseren
+XX - Diver opstarten en weg. In plaats daarvan browser openhouden voor tests. Kijk naar een manier (Cypress en playwright laten browser open staan.). 
+XX - Van hooks gebruik maken before feature en before scenarioblock. --> Dan een before iets voor opstarten selenium. 
+
+XX- Headless draaien. Het is niet altijd nodig om UI te draaien. Alleen draaien als het nodig is. Debuggen test hoeft niet per se altijd in FE. Zoek naar voorbeelden waarom het handig kan zijn dit uit te zetten.
+XXBijv dev zegt dat error messages zijn aangepast. Dan headless draaien en direct kunnen zien dit is de uitkomst. 
+
+XX Screen recording, screen captures, video's. --> echter wel in pipeline. 
+
+XX Methode die null teruggeeft, moet je wel nullable in exception meenemen. Zoals case slider adventurePlayPage. regel 270. Puur om warning weg te halen. Anders krijg je nullreference exception. --> Error list empty
+
+XX *Id's: XPath gebruikt, echter overal staat een ID. ID's zijn namelijk altijd uniek. --> Kritische vragen stellen mbt ID's en data-test-id's neem ik mee in toekomstige projecten
+
+XX Sealed class: Wanneer pas je 'm toe. --> Nog even uitgezocht, terecht op de aanwezige plekken.
+
+XX AsserStat preparePage uniek. Find all references en zo zie je dat het de enige is. Maak private waar nodig. Begrijp ook waarom dit is. 
+Code moet zo bescherm mogelijk zijn en niet vanuit alle plekken worden aangeroepen. --> Aangepast
+
+XX FRamework en ui samenvoegen
+
+XX Endpoints en samenvoegen --> Geen onderliggende db voor EF-assertions
+XX Echt de API-calls testen. dotnet en java kun je het snelste testen tegen api's maken. --> Geen onderliggende db voor EF-assertions
+Netwerktab dan builds van de Be krijg je terug 

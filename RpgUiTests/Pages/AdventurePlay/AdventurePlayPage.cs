@@ -260,7 +260,7 @@ namespace RpgUiTests.Pages.AdventurePlay
 
                 case "slider":
                     taskElement = sliderContainer;
-                    string ariaDisabled = taskElement.GetAttribute("aria-disabled");
+                    string? ariaDisabled = taskElement.GetAttribute("aria-disabled");
                     isEnabled = !(ariaDisabled?.Equals("true", StringComparison.OrdinalIgnoreCase) == true);
                     break;
 

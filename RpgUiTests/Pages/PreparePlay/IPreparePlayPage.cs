@@ -12,6 +12,5 @@ namespace RpgUiTests.Pages.PreparePage
         void AssertDataBindingCharacterName(CharacterOverviewDto expectedData);
         void AssertDataBindingBuildType(CharacterOverviewDto expectedData);
         void AssertStats(CharacterOverviewDto expectedData);
-        void AssertStat(string statName, string actualValue, int expectedValue);
     }
 }

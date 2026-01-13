@@ -18,7 +18,10 @@ namespace RpgFramework.Config
             //De chrome moet worden geconverteert naar een enum type (wat de browserType is)
             jsonSerializeOptions.Converters.Add(new JsonStringEnumConverter());
 
-            return JsonSerializer.Deserialize<TestSettings>(configFile, jsonSerializeOptions);
+            var settings = JsonSerializer.Deserialize<TestSettings>(configFile, jsonSerializeOptions);
+            if (settings == null) throw new InvalidOperationException("Failed to deserialize appsettings.json.");
+
+            return settings;
         }
     }
 }

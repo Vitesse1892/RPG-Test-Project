@@ -1,35 +1,9 @@
-﻿https://test-rpg.vercel.app/
-Hier staat uitgelegd hoe je lokaal kunt runnen
-
-
-BE niet. Waarom selenium?
-Draaien stappen. 
-
-XX- Overbodige injections
-XXUsing kun je allemaal direct opruimen
-
-Optimaliseren
-XX - Diver opstarten en weg. In plaats daarvan browser openhouden voor tests. Kijk naar een manier (Cypress en playwright laten browser open staan.). 
-XX - Van hooks gebruik maken before feature en before scenarioblock. --> Dan een before iets voor opstarten selenium. 
-
-XX- Headless draaien. Het is niet altijd nodig om UI te draaien. Alleen draaien als het nodig is. Debuggen test hoeft niet per se altijd in FE. Zoek naar voorbeelden waarom het handig kan zijn dit uit te zetten.
-XXBijv dev zegt dat error messages zijn aangepast. Dan headless draaien en direct kunnen zien dit is de uitkomst. 
-
-XX Screen recording, screen captures, video's. --> echter wel in pipeline. 
-
-Methode die null teruggeeft, moet je wel nullable in exception meenemen. Zoals case sklider adventurePlayPage. regel 270. Puur om warning weg te halen. Anders krijg je nullreference exception. 
-
-*Id's
-XPath gebruikt, echter overal staat een ID. ID's zijn namelijk altijd uniek. 
-
-Sealed class --> geen methodes van andere classen. --> Wanneer pas je 'm toe. 
-
-AsserStat preparePage uniek. Find all references en zo zie je dat het de enige is. Maak private waar nodig. Begrijp ook waarom dit is. 
-Code moet zo bescherm mogelijk zijn en niet vanuit alle plekken worden aangeroepen. 
-
-FRamework en ui samenvoegen
-
-
-Endpoints en samenvoegen
-Echt de API-calls testen. dotnet en java kun je het snelste testen tegen api's maken. 
-Netwerktab dan builds van de Be krijg je terug 
+﻿https://test-rpg.vercel.app/ --> De applicatie en meer informatie
+Indien je lokaal wil testen, volg dan de instructies op github welke te vinden zijn via die link. Pas vervolgens de appsettings.json file als volgt aan:
+{
+  "BrowserType": "chrome",
+  "ApplicationUrl": "http://localhost:3000",
+  "TimeoutInternal": 5,
+  "ScaleFactor": 1.5,
+  "Headless": false
+}

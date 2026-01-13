@@ -2,7 +2,7 @@
 {
     public record CharacterOverviewDto
     {
-        public string CharacterName { get; set; }
+        public string CharacterName { get; set; } = string.Empty;
         public BuildType BuildType { get; set; }
 
         //Stats associated with the character build
