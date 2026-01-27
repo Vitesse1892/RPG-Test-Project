@@ -1,0 +1,45 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- checkout: self
+  clean: true
+
+# Gebruik dezelfde SDK als jij lokaal pinned (global.json staat al in repo)
+- task: UseDotNet@2
+  displayName: "Use .NET SDK 9.0.304"
+  inputs:
+    packageType: 'sdk'
+    version: '9.0.304'
+
+- script: dotnet --info
+  displayName: "Dotnet info"
+
+- script: dotnet restore "RPG Test Project.sln"
+  displayName: Restore
+
+- script: dotnet build "RPG Test Project.sln" --configuration Release --no-restore
+  displayName: Build
+
+# Draai alleen je UI testproject
+- script: dotnet test "RpgUiTests\RpgUiTests.csproj" --configuration Release --no-build --logger "trx" --results-directory "$(Agent.TempDirectory)\testresults"
+  displayName: Test (RpgUiTests)
+
+- task: PublishTestResults@2
+  displayName: Publish test results
+  condition: always()
+  inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: '$(Agent.TempDirectory)\testresults\*.trx'
+    failTaskOnFailedTests: true
+
+# Screenshots/logs meenemen (pas aan als jouw pad anders is)
+- task: PublishBuildArtifacts@1
+  displayName: Publish screenshots/logs
+  condition: always()
+  inputs:
+    pathToPublish: '$(Build.SourcesDirectory)\RpgUiTests\TestResults'
+    artifactName: 'ui-test-artifacts'
