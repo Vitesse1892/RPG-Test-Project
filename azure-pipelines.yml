@@ -8,12 +8,12 @@ steps:
 - checkout: self
   clean: true
 
-# Gebruik dezelfde SDK als jij lokaal pinned (global.json staat al in repo)
+# .NET 8 is voldoende voor net8.0 build + testhost
 - task: UseDotNet@2
-  displayName: "Use .NET SDK 9.0.304"
+  displayName: "Use .NET SDK 8"
   inputs:
     packageType: 'sdk'
-    version: '9.0.304'
+    version: '8.0.x'
 
 - script: dotnet --info
   displayName: "Dotnet info"
@@ -24,7 +24,6 @@ steps:
 - script: dotnet build "RPG Test Project.sln" --configuration Release --no-restore
   displayName: Build
 
-# Draai alleen je UI testproject
 - script: dotnet test "RpgUiTests\RpgUiTests.csproj" --configuration Release --no-build --logger "trx" --results-directory "$(Agent.TempDirectory)\testresults"
   displayName: Test (RpgUiTests)
 
@@ -36,7 +35,6 @@ steps:
     testResultsFiles: '$(Agent.TempDirectory)\testresults\*.trx'
     failTaskOnFailedTests: true
 
-# Screenshots/logs meenemen (pas aan als jouw pad anders is)
 - task: PublishBuildArtifacts@1
   displayName: Publish screenshots/logs
   condition: always()
