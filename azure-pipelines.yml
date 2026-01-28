@@ -1,5 +1,13 @@
-trigger:
-- main
+trigger: none
+pr: none
+
+schedules:
+- cron: "43 2 * * *"
+  displayName: Nightly UI tests
+  branches:
+    include:
+    - main
+  always: true
 
 pool:
   name: 'SelfHosted'
